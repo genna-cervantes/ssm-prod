@@ -1,65 +1,42 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex flex-col min-h-screen h-dvh gap-15 items-center justify-center pl-50 pr-50 container min-w-full">
+        <div className="hero-content flex flex-col items-center justify-center text-center gap-20">
+          <div className="hero-title">
+            <p>Save Millions of Lives</p>
+            <h1>Save Sierra Madre Now.</h1>
+            <p>Without it, our future is at risk</p>
+          </div>
+          <div className="hero-cta">
+            <button>Sign the petition now</button>
+            <button>Learn more</button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div>
+          <div className="hero-note-list flex gap-20">
+            <div className="hero-note note-1 flex items-center justify-center flex-col">
+              <p className="note-text">The lungs of luzon</p>
+              <div className="vertical-dashed-line w-0 h-10 border-dashed border-white border-l"></div>
+              <div className="circle bg-white rounded-full w-2 h-2"></div>
+            </div>
+            <div className="hero-note note-2 flex items-center justify-center flex-col">
+              <p className="note-text">Home to millions of species and <br/> indigenous communities.</p>
+              <div className="vertical-dashed-line w-0 h-10 border-dashed border-white border-l"></div>
+              <div className="circle bg-white rounded-full w-2 h-2"></div>
+            </div>
+            <div className="hero-note note-3 flex items-center justify-center flex-col">
+              <p className="note-text">Protector from typhoons, <br/> and provider of clean water</p>
+              <div className="vertical-dashed-line w-0 h-10 border-dashed border-white border-l"></div>
+              <div className="circle bg-white rounded-full w-2 h-2"></div>
+            </div>
+          </div>
+          <div className="petitions-signed w-full">
+            <p> <span>78,041</span> people have signed. Help us reach 128,095</p>
+            <div className="progress-bar bg-white rounded-full h-4 w-full">
+              <div className="progress bg-green-500 rounded-full h-4" style={{ width: '60%' }}></div>
+            </div>
+          </div>
         </div>
-      </main>
     </div>
   );
 }
