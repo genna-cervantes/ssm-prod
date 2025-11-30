@@ -6,7 +6,7 @@ import  RecentActivity from '../components/RecentActivity'
 import Image from 'next/image'
 
 
-function Dashboard() {
+export default function Dashboard() {
   return (
     <div className="flex w-full m-auto max-w-[1440px] bg-[#FFF4E0] justify-center items-center">
       <Sidebar />
@@ -34,4 +34,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+
