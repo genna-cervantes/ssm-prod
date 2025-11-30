@@ -22,9 +22,7 @@ function Dashboard() {
             </div>
           </div>
           <div className='w-full mb-5'>
-            <div className='flex justify-between'>
-              <SummaryCard/>
-            </div>
+            <SummaryCard/>
           </div>
           <div className='flex justify-between'>
             <Chart />

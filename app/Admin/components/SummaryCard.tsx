@@ -46,7 +46,7 @@ const summaryData = [
 
 export default function SummaryCards() {
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex justify-between flex-wrap">
       {summaryData.slice(0, 4).map((card) => (
         <div
           key={card.id}
