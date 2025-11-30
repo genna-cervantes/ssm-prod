@@ -49,7 +49,7 @@ function Dashboard() {
         <div className='w-full h-[109px] border-b-2 border-[#A2A2A299]/60'></div>
         <div className='w-[1074px] flex flex-col flex-1 pl-6 pr-12 py-9'>
           <div className='flex flex-col gap-0.5 mb-8'>
-            <div className='font-bold text-4xl'>Admin DashBoard</div>
+            <div className='font-bold text-4xl'>Admin Dashboard</div>
             <div>
               <p className='font-medium text-lg text-black/60 text-balance'>
                 Welcome back, Here&apos;s what&apos;s happening with your campaign.
