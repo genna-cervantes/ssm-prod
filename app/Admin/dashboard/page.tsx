@@ -6,41 +6,6 @@ import  RecentActivity from '../components/RecentActivity'
 import Image from 'next/image'
 
 
-const summaryData = [
-  {
-    id: 1,
-    title: "Total Signatures",
-    value: "12,847",
-    trend: "+324 this week",
-    isPositive: true,
-    icon: "/summary/total-sig-icon.svg"
-  },
-  {
-    id: 2,
-    title: "Active Users",
-    value: "2,456",
-    trend: "+142 this week",
-    isPositive: true,
-    icon: "/summary/summary-users-icon.svg"
-  },
-  {
-    id: 3,
-    title: "Publications",
-    value: "48",
-    trend: "+3 this month",
-    isPositive: true,
-    icon: "/summary/summary-published-icon.svg"
-  },
-  {
-    id: 4,
-    title: "Total Signatures",
-    value: "12,847",
-    trend: "+324 this week",
-    isPositive: true,
-    icon: "/summary/summary-engagement-icon.svg"
-  }
-]
-
 function Dashboard() {
   return (
     <div className="flex w-full m-auto max-w-[1440px] bg-[#FFF4E0] justify-center items-center">
@@ -58,24 +23,7 @@ function Dashboard() {
           </div>
           <div className='w-full mb-5'>
             <div className='flex justify-between'>
-              {summaryData.slice(0,4).map((card) => (
-              <SummaryCard
-              key={card.id}
-              icon={
-                <Image 
-                  src={card.icon} 
-                  alt="Total Signatures" 
-                  width={24} 
-                  height={24} 
-                  className="object-contain"
-                />
-              }
-              title={card.title}
-              value={card.value}
-              trend={card.trend}
-              isPositive={card.isPositive}
-              />  
-            ))}
+              <SummaryCard/>
             </div>
           </div>
           <div className='flex justify-between'>
