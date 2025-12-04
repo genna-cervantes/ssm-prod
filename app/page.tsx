@@ -39,12 +39,12 @@ export default function Home() {
       {/* hero section */}
       <section className="relative min-h-screen flex flex-col items-center overflow-hidden">
         <div className="absolute inset-0 -z-20">
-             <Image src="/images/hero-bg.jpg" alt="Bg" fill className="object-cover object-center md:object-top" priority />
+             <Image src="/images/hero-bg.jpg" alt="Bg" fill className="object-cover object-center md:object-top mt-30" priority />
         </div>
         <div className="absolute inset-0 -z-10 bg-linear-to-b from-white from-10% via-white/60 via-40% to-transparent"></div>
         <Header />
         <main className="flex flex-col w-full grow container mx-auto px-4 relative z-10">      
-            <div className="grow flex flex-col items-center justify-center text-center gap-8 md:gap-10 pt-20 pb-10">
+            <div className="grow flex flex-col items-center justify-center text-center gap-8 md:gap-10 pt-10 pb-10">
               <div className="hero-title space-y-2 md:space-y-4">
                 <p className="text-xl md:text-3xl font-medium text-gray-700 tracking-wide">Save Millions of Lives</p>
                 <h1 className="text-5xl md:text-7xl lg:text-[110px] bg-linear-to-r from-green-6 to-[#68B668] bg-clip-text text-transparent font-extrabold leading-[1.1] tracking-tight py-2">Save Sierra Madre Now.</h1>
@@ -59,19 +59,19 @@ export default function Home() {
                {/* Note Grid */}
                <div className="w-full md:grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-4 text-center px-4 md:px-0 hidden">
                   <div className="flex flex-col items-center justify-end gap-2">
-                    <p className="text-white text-lg md:text-xl font-medium drop-shadow-md">The lungs of Luzon</p>
-                    <div className="h-8 md:h-24 w-px border-l-2 border-dashed border-white/70"></div>
-                    <div className="w-3 h-3 bg-white rounded-full shadow-[0_0_10px_white]"></div>
+                    <p className="text-green-5 text-lg md:text-xl font-medium drop-shadow-md">The lungs of Luzon</p>
+                    <div className="h-8 md:h-24 w-px border-l-2 border-dashed border-green-5/70"></div>
+                    <div className="w-3 h-3 bg-green-5 rounded-full shadow-[0_0_10px_green-5]"></div>
                   </div>
                   <div className="flex flex-col items-center justify-end gap-2 md:-mt-12"> 
-                    <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-[300px]">Home to millions of species and indigenous communities.</p>
-                    <div className="h-12 md:h-32 w-px border-l-2 border-dashed border-white/70"></div>
-                    <div className="w-3 h-3 bg-white rounded-full shadow-[0_0_10px_white]"></div>
+                    <p className="text-green-5 text-lg md:text-xl font-medium drop-shadow-md max-w-[300px]">Home to millions of species and indigenous communities.</p>
+                    <div className="h-12 md:h-32 w-px border-l-2 border-dashed border-green-5/70"></div>
+                    <div className="w-3 h-3 bg-green-5 rounded-full shadow-[0_0_10px_green-5]"></div>
                   </div>
                   <div className="flex flex-col items-center justify-end gap-2">
-                    <p className="text-white text-lg md:text-xl font-medium drop-shadow-md max-w-[250px]">Protector from typhoons, and provider of clean water</p>
-                    <div className="h-8 md:h-20 w-px border-l-2 border-dashed border-white/70"></div>
-                    <div className="w-3 h-3 bg-white rounded-full shadow-[0_0_10px_white]"></div>
+                    <p className="text-green-5 text-lg md:text-xl font-medium drop-shadow-md max-w-[250px]">Protector from typhoons, and provider of clean water</p>
+                    <div className="h-8 md:h-20 w-px border-l-2 border-dashed border-green-5/70"></div>
+                    <div className="w-3 h-3 bg-green-5 rounded-full shadow-[0_0_10px_green-5]"></div>
                   </div>
                </div>
                <div className="w-full max-w-5xl px-4">
@@ -90,7 +90,7 @@ export default function Home() {
                But Sierra Madre is <span className="text-red-400">Under Threat</span>
             </h2>
             <p className="text-lg md:text-2xl text-gray-200 max-w-5xl leading-relaxed mb-10">
-               The Sierra Madre faces severe threats from illegal logging, mining, destructive agricultural practices...
+               The Sierra Madre faces severe threats from illegal logging, mining, destructive agricultural practices, and infrastructure projects, which together cause forest degradation, loss of biodiversity, and weaken its vital role as a natural barrier protecting communities from storms.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
                 <button className="bg-white text-black px-12 py-4 rounded-xl text-lg font-bold hover:bg-gray-200 transition-colors shadow-lg">Read more &gt;</button>
