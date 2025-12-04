@@ -1,10 +1,16 @@
+"use client"
 import Image from 'next/image';
+import { useState } from "react";
 import { Header } from "./components/Header";
 import PetitionProgress from "./components/PetitionProgress";
 import CommunityNoteCard from "./components/CommunityNoteCard"; 
+import ReadMoreCard from './components/readMoreCard';
+import CardBlock from './components/card-block';
+import TopicCard from "./components/TopicCard";
 
 export default function Home() {
-  
+  const [secondCardBg, setSecondCardBg] = useState("/images/sierrabest.jpg");
+
   const notes = [
     {
       date: "Oct 8, 2025",
@@ -83,6 +89,32 @@ export default function Home() {
         </main> 
       </section>
 
+      {/* why sierra madre matters section */}
+      <main className="container w-full min-h-screen py-10 md:py-[100px] px-4 md:px-[50px] bg-white">
+      <header className="header-container w-full py-8 flex flex-col items-center text-[#373F2A] justify-center text-center">
+        <h1 className="text-4xl md:text-6xl font-semibold">Why Sierra Madre Matters</h1>
+        <p className="mt-2 text-lg text-[#625541]">
+          This ancient rainforest is more than just trees. It's a lifeline for millions.
+        </p>
+      </header>
+
+      <section className="flex flex-col lg:flex-row justify-center items-center gap-5 flex-1">
+        <ReadMoreCard 
+        backgroundImg="/images/mellisa_typhoon.jpg" />
+        <div
+          className="flex-1 flex w-full lg:w-auto"
+          onMouseEnter={() => setSecondCardBg("/images/mellisa_typhoon.jpg")}
+          onMouseLeave={() => setSecondCardBg("/images/sierrabest.jpg")}
+        >
+          <ReadMoreCard backgroundImg={secondCardBg} />
+        </div>
+        <ReadMoreCard 
+        backgroundImg="/images/mellisa_typhoon.jpg" />
+        <ReadMoreCard 
+        backgroundImg="/images/mellisa_typhoon.jpg" />
+      </section>
+    </main>
+
       {/* problem section kaliwa dam */}
       <section className="problem min-h-screen bg-linear-to-b from-[#1A2F1A] to-[#396839] pt-20 flex flex-col w-full items-center justify-start gap-16 text-white">
           <div className="problem-title flex flex-col items-center text-center px-4">
@@ -141,6 +173,83 @@ export default function Home() {
             </div>
           </div>
       </section>
+
+      {/* why we must act now section */}
+      <div className="why-we-must-act-now-div container w-full min-h-screen py-10 md:py-[100px] px-4 md:px-[50px] bg-[#FFFCF5]">
+      
+      <h1 className="text-[#4D724D] text-4xl md:text-[72px] font-bold flex items-center justify-center m-8 md:m-14 text-center">Why Must We Act Now</h1>
+      <div className="card-block-container flex flex-col gap-6 md:gap-10">
+        <CardBlock
+        cardPosition="1"
+        title="Protects Us from Typhoons"
+        description="The Sierra Madre is our first line of defense against typhoons in the Philippines as it weakens the strong winds and heavy rain. Without it, storms would continue to cause greater destruction to countless homes, farms, and infrastructures, pushing us to an impoverished life."
+        />
+        <CardBlock
+        cardPosition="1"
+        title="Protects Us from Typhoons"
+        description="The Sierra Madre is our first line of defense against typhoons in the Philippines as it weakens the strong winds and heavy rain. Without it, storms would continue to cause greater destruction to countless homes, farms, and infrastructures, pushing us to an impoverished life."
+        />
+        <CardBlock
+        cardPosition="1"
+        title="Protects Us from Typhoons"
+        description="The Sierra Madre is our first line of defense against typhoons in the Philippines as it weakens the strong winds and heavy rain. Without it, storms would continue to cause greater destruction to countless homes, farms, and infrastructures, pushing us to an impoverished life."
+        />
+        <CardBlock
+        cardPosition="1"
+        title="Protects Us from Typhoons"
+        description="The Sierra Madre is our first line of defense against typhoons in the Philippines as it weakens the strong winds and heavy rain. Without it, storms would continue to cause greater destruction to countless homes, farms, and infrastructures, pushing us to an impoverished life."
+        />
+      </div>
+      <div>
+        <h1 className="title-divider font-semibold text-[24px] leading-[32px] my-8 text-[#4D724D]">What You Should Know</h1>
+      </div>
+      
+      <div className="act-more-info-container flex flex-col lg:flex-row gap-6 bg-[#FFF2DC80] rounded-[32px] p-6 md:p-8 h-auto lg:h-[500px]">
+          <div className="img-part relative w-full lg:w-1/2 h-[300px] lg:h-full rounded-[32px] overflow-hidden shrink-0">
+            <img src="/images/mellisa2.jpg " alt="" className="rounded-[32px] w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/80 rounded-[32px] bg-[#586e3166]"></div>
+            
+            <div className="absolute bottom-8 left-8 text-white z-10">
+              <p className="text-sm mb-2 font-light">XX.XX.XXXX</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Lorem ipsum</h2>
+              <button className="px-6 py-3 border-2 border-white rounded-lg hover:bg-white hover:text-black transition-colors flex items-center gap-2">
+                Read Now <span>›</span>
+              </button>
+            </div>
+          </div>
+          <div className="topic-cards-container w-full lg:w-1/2 h-full flex flex-col justify-between gap-4 lg:gap-0">
+          <TopicCard 
+          img=""
+          desc="xx.xxx.xxxx"
+          title=""
+          />
+          <hr />  
+          <TopicCard 
+          img=""
+          desc="xx.xxx.xxxx"
+          title=""
+          />
+          <hr />
+          <TopicCard 
+          img=""
+          desc="xx.xxx.xxxx"
+          title=""
+          />
+          <hr />
+        </div>
+      </div>
+    </div >
+
+      {/* voice section */}
+      <div className="voice-section w-full h-auto md:h-[100vh] bg-[#395739] flex flex-col md:flex-row">
+      <div className="voice-img-container relative w-full md:w-[45%] h-[50vh] md:h-full">
+        <div className="w-full h-full relative overflow-hidden md:rounded-tr-[24rem]">
+             <img className="h-full w-full object-cover grayscale" src="/images/voice-img.jpg"  alt="" />
+             <div className="absolute inset-0 bg-gradient-to-t from-[#759340]/40 to-transparent"></div>
+        </div>
+      </div>
+      <div className="w-full md:w-[55%]"></div>
+    </div>
 
       {/* community notes section */}
       <section className="cta-3-section relative py-24 bg-brown-1 flex flex-col items-center justify-center overflow-hidden">
