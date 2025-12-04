@@ -12,7 +12,6 @@ export const Header = ({
 
   const isFilled = variant === 'filled';
 
-  // --- Styling Logic ---
   const containerClasses = isFilled 
     ? "bg-[#386641] text-white" 
     : "bg-white text-[#487948]";
@@ -23,7 +22,6 @@ export const Header = ({
 
   const textColor = isFilled ? "text-white" : "text-black/80 hover:text-black";
 
-  // --- Icons ---
   const BurgerIcon = () => (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -42,7 +40,6 @@ export const Header = ({
   return (
     <header className={`w-full mt-5 py-6 px-8 md:px-12 flex items-center justify-between transition-colors relative z-50 rounded-xl ${containerClasses}`}>
       
-      {/* 1. Logo Section */}
       <div className="flex items-center gap-4">
         <div className="relative h-10 w-14">
             <Image 
@@ -58,7 +55,6 @@ export const Header = ({
         </span>
       </div>
 
-      {/* 2. Desktop Navigation (Hidden on Mobile, Flex on Medium+) */}
       <nav className="hidden md:flex items-center gap-8 md:gap-12"> 
         {links.map((link) => (
           <a 
@@ -71,10 +67,8 @@ export const Header = ({
         ))}
       </nav>
 
-      {/* 3. Actions (Button vs Burger) */}
       <div className="flex items-center">
         
-        {/* Burger Button: Visible on Mobile (block), Hidden on Desktop (md:hidden) */}
         <button 
             className="block md:hidden p-2 focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -82,7 +76,6 @@ export const Header = ({
           {isMobileMenuOpen ? <CloseIcon /> : <BurgerIcon />}
         </button>
 
-        {/* CTA Button: Hidden on Mobile (hidden), Visible on Desktop (md:block) */}
         <div className="hidden md:block">
             <button className={`px-8 py-3 rounded-lg font-semibold text-lg transition-all ${buttonClasses}`}>
                 Sign the Petition
@@ -90,7 +83,6 @@ export const Header = ({
         </div>
       </div>
 
-      {/* 4. Mobile Menu Dropdown Overlay */}
       {isMobileMenuOpen && (
         <div className={`absolute top-full left-0 w-full flex flex-col items-center gap-6 py-8 shadow-xl md:hidden rounded-b-xl border-t border-black/5 ${containerClasses}`}>
             {links.map((link) => (
