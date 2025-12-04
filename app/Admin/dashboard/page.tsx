@@ -1,10 +1,7 @@
-import React from 'react'
 import Sidebar from '../components/Sidebar'
 import SummaryCard from '../components/SummaryCard'
 import  Chart  from '../components/Chart'
 import  RecentActivity from '../components/RecentActivity'
-import Image from 'next/image'
-
 
 export default function Dashboard() {
   return (
