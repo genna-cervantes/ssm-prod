@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image"; 
 
 export default function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const pathName = usePathname();
 
   const navItems = [
@@ -17,7 +17,7 @@ export default function Sidebar() {
     },
     {
       name: "Signee Approvals",
-      href: "/approvals",
+      href: "/signee-approvals",
       icon: "/dashboard/signee-icon.svg"
     },{
       name: "Publications",
@@ -32,7 +32,12 @@ export default function Sidebar() {
   ]
 
   return(
-    <aside className={`flex flex-col justify-between h-[1080px] bg-gradient-to-b from-[#1A2F1A] to-[#345C34] rounded-tr-[40px] rounded-br-[30px] p-[40px] font-inter text-white font-normal transition-all duration-300 ease-in-outtransition-all duration-300 ease-in-out ${isCollapsed ? "w-[140px]" : "w-[366px]"} `}>
+    <aside className={`
+      flex flex-col justify-between h-[1080px] bg-gradient-to-b from-[#1A2F1A] to-[#345C34] 
+      rounded-tr-[40px] rounded-br-[30px] p-[40px] font-inter text-white font-normal transition-all 
+      duration-300 ease-in-outtransition-all duration-300 ease-in-out 
+      ${isCollapsed ? "w-[140px]" : "w-[366px]"} 
+    `}>
       <div className={
         ` flex border-b-2 border-[#ffffff41] pb-5 items-center overflow-hidden 
           ${isCollapsed ? "flex-col gap-4 justify-center": "justify-between"}
@@ -78,8 +83,8 @@ export default function Sidebar() {
               key={item.href}
               href= "#"
               className={`
-                flex items-center font-instrument p-3 rounded-lg transition-all duration-300 ease-in-out
-                hover:bg-[#4c595f77] hover:text-white 
+                flex items-center font-instrument p-3 rounded-lg transition-all 
+                duration-300 ease-in-out hover:bg-[#4c595f77] hover:text-white 
                 
                 /* Layout Logic */
                 ${isCollapsed ? "justify-center" : "justify-start gap-4"}
