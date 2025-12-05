@@ -319,7 +319,7 @@ export default function Home() {
         </div>
 
         {/* Copyright */}
-      <div className="border-t border-white/20 mt-8 md:mt-12 pt-6 text-center pb-10 lg:pb-0">
+      <div className="border-t border-white/20 mt-8 md:mt-12 pt-6 text-center pb-18 lg:pb-0">
         <p className="text-white text-base md:text-sm">
           © 2025 Save Sierra Madre Network Alliance. All rights reserved.
         </p>
