@@ -1,9 +1,10 @@
 import React from 'react';
 
+
 const StatisticsBar = () => {
   return (
-    <div className="mx-auto left-0 right-0 w-[90%] md:w-3/4 px-4 mb-16 absolute -top-40 md:-top-32 z-20">
-      <div className="max-w-[1200px] mx-auto bg-[#3E5C3E] rounded-[32px] p-6 md:py-16 md:px-12 grid grid-cols-2 md:flex justify-between items-start md:items-center gap-y-8 gap-x-4 md:gap-4 shadow-xl text-[#F2F0E9]">
+    <div className="mx-auto left-0 right-0 w-[90%] lg:w-3/4 px-4 mb-16 absolute -top-40 md:-top-32 z-20">
+      <div className="max-w-[1200px] mx-auto bg-[#3E5C3E] rounded-4xl p-6 md:py-16 md:px-12 grid grid-cols-2 md:flex justify-between items-start md:items-center gap-y-8 gap-x-4 md:gap-4 shadow-xl text-[#F2F0E9]">
         
         <div className="flex flex-col items-center gap-2 md:gap-4 col-span-1 flex-1 text-center">
           <div className="icon-container w-12 h-12 md:w-16 md:h-16 mb-1 md:mb-2">
