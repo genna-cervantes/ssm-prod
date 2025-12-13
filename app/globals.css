@@ -1,34 +1,23 @@
 @import "tailwindcss";
 
-@theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-
-  --color-green-1: #E5E7DD;
-  --color-green-2: #C7E592;
-  --color-green-3: #AAD65D;
-  --color-green-4: #759340;
-  --color-green-5: #637D36;
-  --color-green-6: #4D724D;
-  --color-green-7: #373F2A;
-  --color-green-8: #242C16;
-
-  --color-brown-1: #FFF4E0;
-  --color-brown-2: #E5D9C5;
-  --color-brown-3: #625541;
-}
-
-
-
 @theme {
   --font-inter: var(--font-inter);
   --font-instrument: var(--font-instrument);
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-roboto: var(--font-roboto);
-}
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+  --color-green-1: #e5e7dd;
+  --color-green-2: #c7e592;
+  --color-green-3: #aad65d;
+  --color-green-4: #759340;
+  --color-green-5: #637d36;
+  --color-green-6: #4d724d;
+  --color-green-7: #373f2a;
+  --color-green-8: #242c16;
+
+  --color-brown-1: #fff4e0;
+  --color-brown-2: #e5d9c5;
+  --color-brown-3: #625541;
 }
 
 .font-inter {
@@ -39,19 +28,7 @@
   font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
 }
 
-.font-roboto{
-  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-1;
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.font-roboto {
+  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  
-
-}
