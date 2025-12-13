@@ -1,7 +1,7 @@
-import Sidebar from '../components/Sidebar'
-import SummaryCard from '../components/SummaryCard'
-import  Chart  from '../components/Chart'
-import  RecentActivity from '../components/RecentActivity'
+import Sidebar from '../_components/Sidebar'
+import SummaryCard from '../_components/SummaryCard'
+import  Chart  from '../_components/Chart'
+import  RecentActivity from '../_components/RecentActivity'
 
 export default function Dashboard() {
   return (

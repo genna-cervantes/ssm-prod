@@ -3,10 +3,10 @@
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
-import { PublicationCard } from "../components/PublicationCard";
-import { EditPublicationPanel } from "../components/EditPublicationPanel";
-import { NewPublicationPanel } from "../components/NewPublicationPanel";
-import { DeletePublicationBox } from "../components/DeletePublicationBox";
+import { PublicationCard } from "../_components/PublicationCard";
+import { EditPublicationPanel } from "../_components/EditPublicationPanel";
+import { NewPublicationPanel } from "../_components/NewPublicationPanel";
+import { DeletePublicationBox } from "../_components/DeletePublicationBox";
 
 type Publication = {
   title: string;

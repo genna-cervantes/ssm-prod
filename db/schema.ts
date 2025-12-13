@@ -82,14 +82,3 @@ export const rolesTable = pgTable("roles", {
   ...baseColumns,
 });
 
-// users
-export const usersTable = pgTable("users", {
-  id: serial("id").primaryKey(),
-  roleId: integer("role_id")
-    .notNull()
-    .references(() => rolesTable.id, { onDelete: "restrict" }),
-  email: varchar("email", { length: 320 }).notNull(),
-  firstName: varchar("first_name", { length: 255 }).notNull(),
-  lastName: varchar("last_name", { length: 255 }).notNull(),
-  ...baseColumns,
-});

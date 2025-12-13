@@ -1,7 +1,7 @@
 "use client"
 
-import Sidebar from "../components/Sidebar"
-import Approvals from "../components/Approvals"
+import Sidebar from "../_components/Sidebar"
+import Approvals from "../_components/Approvals"
 import { useState } from "react"
 
 interface Submission {
