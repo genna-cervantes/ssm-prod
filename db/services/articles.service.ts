@@ -10,6 +10,12 @@ export type CreateArticleInput = {
   author: string;
 };
 
+export type UpdateArticleInput = Partial<
+  CreateArticleInput & {
+    isActive: boolean;
+  }
+>;
+
 export async function createArticle(data: CreateArticleInput) {
   const [article] = await db
     .insert(articlesTable)
@@ -34,11 +40,14 @@ export async function getArticleById(id: number) {
 
 export async function updateArticle(
   id: number,
-  data: Partial<CreateArticleInput>
+  data: UpdateArticleInput
 ) {
   const [article] = await db
     .update(articlesTable)
-    .set(data)
+    .set({
+      ...data,
+      updatedAt: new Date(),
+    })
     .where(eq(articlesTable.id, id))
     .returning();
 
