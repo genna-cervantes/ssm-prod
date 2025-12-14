@@ -37,7 +37,9 @@ export default async function ArticleCard({ id, variant = "internal" }) {
   // Main Card Component
   const CardContent = () => {
     return (
-        <div className={`overflow-hidden grid grid-cols-[1fr_1.75fr] sm:grid-cols-1 sm:grid-rows-[1fr_1fr] sm:min-h-[460px] gap-2 sm:bg-[#EEE7DC] sm:rounded-2xl hover:bg-[#DDD0BC] transition-all duration-300 cursor-pointer`}>
+        <div className={`
+        overflow-hidden grid grid-cols-[1fr_1.75fr] gap-2 shadow-lg shadow-black/20
+        sm:grid-cols-1 sm:grid-rows-[1fr_1fr] sm:min-h-[460px] sm:bg-[#EEE7DC] sm:rounded-2xl hover:bg-[#DDD0BC] transition-all duration-300 cursor-pointer`}>
           <img src={thumbnail} alt="" className={`aspect-video object-cover h-full rounded-lg sm:rounded-t-2xl sm:rounded-b-[0]`} />
           <section className={`p-2 sm:px-6 sm:py-5 sm:flex sm:flex-col sm:justify-between`}>
             <div className={`flex flex-col gap-1 sm:gap-2`}>

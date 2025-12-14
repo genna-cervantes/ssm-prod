@@ -21,8 +21,9 @@ const instrumentSerif = Instrument_Serif({
 
 export default function Publications() {
   return (
-    <main
-      className={`relative overflow-hidden bg-white max-w-screen min-h-screen text-[#373F2A] ${hedvigLetterSans.className} [&>section_h2]:${instrumentSans.className} [&>section_h2]:font-semibold [&>section_h2]:text-[#373F2A]`}
+    <main className={`
+      ${hedvigLetterSans.className} relative overflow-hidden bg-white max-w-screen min-h-screen text-[#373F2A]  
+      [&>section_h2]:${instrumentSans.className} [&>section_h2]:font-semibold [&>section_h2]:text-[#373F2A]`}
     >
       {/* Header */}
 
