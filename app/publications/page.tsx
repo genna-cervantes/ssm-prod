@@ -89,66 +89,59 @@ export default function Publications() {
       </section>
 
       {/* SHARE YOUR STORY SECTION   */}
-      <section
-        className={`bg-radial from-[#FFF4E0] to-transparent p-12 sm:p-12 md:p-18 flex flex-col justify-center items-center gap-[40px]`}
-      >
-        <div
-          className={`flex flex-col justify-center items-center gap-4 text-center`}
-        >
+      <section className={`
+        bg-radial from-[#FFF4E0] to-transparent px-2 py-8 flex flex-col justify-center items-center gap-4 
+        sm:gap-10 sm:py-20`}>
+        <div className={`px-4 text-center`}>
           <h2 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl`}>
-            Share Your{" "}
-            <span className={`${instrumentSerif.className} italic`}>Story</span>
+            Share Your{" "}<span className={`${instrumentSerif.className} italic`}>Story</span>
           </h2>
-          <p className={`max-w-[60ch] text-sm sm:text-base`}>
+          <p className={`max-w-[60ch] text-sm sm:text-base mt-4`}>
             Have insights, research, or stories about Sierra Madre? We welcome
             contributions from community members, researchers, and advocates.
             Share your article or publication with us.
           </p>
         </div>
-        <div className={`flex flex-col sm:flex-row gap-4`}>
-          <div
-            className={`flex gap-5 bg-[#637D36] text-[#E5E7DD] max-w-[860px] text-sm sm:text-base p-4 sm:p-8 sm:pr-16 rounded-2xl sm:rounded-r-full`}
-          >
-            <img
-              src="/assets/check-icon.svg"
-              alt="check"
-              className={`self-start mt-2`}
+        <div className={`flex flex-col items-center justify-center gap-4 w-full sm:flex-row`}>
+          <div className={`
+            flex flex-col gap-2 p-4 pb-8 bg-[#637D36] rounded-r-full text-[#E5E7DD] text-sm w-full
+            sm:max-w-[860px] sm:flex-row sm:text-base sm:gap-5 sm:p-8 sm:pr-16
+          `}>
+            <img src="/assets/check-icon.svg" alt="check"
+              className={`self-start mt-2 m-auto sm:mx-0`}
             />
-            <div className={`max-w-[60ch]`}>
-              <h3
-                className={`font-bold text-2xl sm:text-3xl lg:text-4xl ${instrumentSans.className}`}
-              >
+            
+            <div className={`max-w-[60ch] w-full`}>
+              <h3 className={`
+                ${instrumentSans.className} font-bold text-center text-xl 
+                sm:text-3xl sm:text-left lg:text-4xl`}>
                 Submission Guidelines
               </h3>
-              <ul
-                className={`list-disc mt-4 sm:ml-5 flex flex-col gap-2 sm:gap-0 text-sm sm:text-base`}
-              >
-                <li>
-                  Articles should be relevant to Sierra Madre conservation,
-                  environmental issues, or indigenous communities.
-                </li>
-                <li>
-                  Include your name, affiliation, and contact information.
-                </li>
+              <ul className={`
+                  list-disc mt-2 text-xs flex flex-col gap-2 max-w-[30ch] m-auto
+                  sm:text-base sm:mt-4 sm:ml-5 sm:max-w-none sm:mx-0
+              `}>
+                <li>Articles should be relevant to Sierra Madre conservation, environmental issues, or indigenous communities.</li>
+                <li>Include your name, affiliation, and contact information.</li>
                 <li>Attach your article in PDF or Word format.</li>
                 <li>Include any relevant photos or supporting materials.</li>
               </ul>
             </div>
           </div>
-          <div
-            className={`flex flex-col justify-center items-center p-4 gap-4 text-center`}
-          >
+
+          <div className={`flex flex-col justify-center items-center p-4 gap-4 text-center`}>
             <p className={`text-sm sm:text-base text-[#625541]`}>
               Send your submission here:
             </p>
-            <button
-              className={`bg-[#4D724D] text-[#E5E7DD] px-6 py-2 rounded-lg text-sm sm:text-base`}
-            >
-              Submit your Article
+            <button className={`
+              flex gap-2 justify-center items-center bg-[#4D724D] text-white px-6 py-2 rounded-lg whitespace-nowrap text-sm 
+              sm:text-base hover:bg-[#373F2A] transition-colors duration-300`}>
+              <span>Submit your Article</span>
+              <img src="/assets/send.svg" alt="" />
             </button>
           </div>
         </div>
-      </section>
+</section>
     </main>
   );
 }
