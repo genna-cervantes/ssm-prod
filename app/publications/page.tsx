@@ -1,8 +1,11 @@
 import Image from "next/image";
-
+// Fonts
 import { Instrument_Sans } from "next/font/google";
 import { Hedvig_Letters_Sans } from "next/font/google";
 import { Instrument_Serif } from "next/font/google";
+
+//Components
+import ArticleCard from "./components/ArticleCard";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -74,12 +77,15 @@ export default function Publications() {
       <hr className={`m-auto w-[97%]`} />
 
       {/* OWN PUBLICATIONS */}
-      <section className={`min-h-screen p-8`}>
-        <h2
-          className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-8 text-center sm:text-left`}
-        >
+      <section className={`min-h-screen`}>
+        <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-8 text-center sm:text-left`}>
           Dive into Our Publications
         </h2>
+        <div className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-2 max-w-7xl mx-auto mt-12`}>
+          <ArticleCard id={101} variant="internal" />
+          <ArticleCard id={102} variant="internal" />
+          <ArticleCard id={104} variant="internal" />
+        </div>
       </section>
 
       {/* SHARE YOUR STORY SECTION   */}
