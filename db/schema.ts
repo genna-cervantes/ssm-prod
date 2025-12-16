@@ -93,12 +93,3 @@ export const usersTable = pgTable("users", {
   lastName: varchar("last_name", { length: 255 }).notNull(),
   ...baseColumns,
 });
-
-//messages
-export const messagesTable = pgTable("messages", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 320 }).notNull(),
-  message: varchar("message", { length: 255 }).notNull(),
-  ...baseColumns,
-});
