@@ -32,7 +32,7 @@ export const petitionsTable = pgTable("petitions", {
 export const notesTable = pgTable("notes", {
   id: serial("id").primaryKey(),
   sender: varchar("sender", { length: 255 }).notNull(),
-  note: text("note").notNull(),
+  note: text("note"),
   date: timestamp("date", { withTimezone: true }).defaultNow().notNull(),
   petitionId: integer("petition_id")
     .notNull()
