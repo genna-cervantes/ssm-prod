@@ -1,17 +1,17 @@
-import { db } from "@/db/index";
-import { publicationsTable } from "@/db/schema";
-import PublicationClient from "@/components/Publications";
-import { Publication } from "@/interfaces/publication";
+// page.tsx (Server Component)
+import { getArticles } from "./data";
+import PublicationsClient from "./PublicationsClient";
 
-export default async function PublicationsPage() {
-    const publications: Publication[] = await db.select({
-        id: publicationsTable.id,
-        author: publicationsTable.author,
-        content: publicationsTable.content,
-        datePublished: publicationsTable.datePublished
-    }).from(publicationsTable);
-    
-    return (
-        <PublicationClient publications={publications}/>
-    );
+export default async function Publications() {
+
+  // Mock data fetching
+  const { externalPubs, internalPubs } = await getArticles();
+
+  // Pass data to Client Component
+  return (
+    <PublicationsClient 
+      initialExternalArticles={externalPubs} 
+      initialInternalArticles={internalPubs} 
+    />
+  );
 }
