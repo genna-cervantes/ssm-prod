@@ -5,6 +5,19 @@
   --font-instrument: var(--font-instrument);
   --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
   --font-roboto: var(--font-roboto);
+
+  --color-green-1: #e5e7dd;
+  --color-green-2: #c7e592;
+  --color-green-3: #aad65d;
+  --color-green-4: #759340;
+  --color-green-5: #637d36;
+  --color-green-6: #4d724d;
+  --color-green-7: #373f2a;
+  --color-green-8: #242c16;
+
+  --color-brown-1: #fff4e0;
+  --color-brown-2: #e5d9c5;
+  --color-brown-3: #625541;
 }
 
 .font-inter {
@@ -15,6 +28,7 @@
   font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
 }
 
-.font-roboto{
-  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-1;
+.font-roboto {
+  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
 }
+
