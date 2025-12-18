@@ -66,13 +66,16 @@ export const articlesTable = pgTable("articles", {
 // publications (in house)
 export const publicationsTable = pgTable("publications", {
   id: serial("id").primaryKey(),
+  title: varchar("title", { length: 512 }).notNull(),
+  slug: varchar("slug", { length: 512 }).notNull().unique(),
+  description: text("description").notNull(),
   author: varchar("author", { length: 255 }).notNull(),
   content: text("wysiwyg_content").notNull(),
+  heroImage: text("hero_image"),
+  isDraft: boolean("is_draft").notNull().default(true),
   datePublished: timestamp("date_published", {
     withTimezone: true,
-  })
-    .defaultNow()
-    .notNull(),
+  }),
   ...baseColumns,
 });
 
