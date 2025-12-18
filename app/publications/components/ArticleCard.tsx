@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 type Article = {
   title: string;
   author: string;
-  datePublished: string | Date;
+  datePublished: Date|null;
   thumbnail: string;
   authorDP: string;
   content?: string;
@@ -26,11 +26,11 @@ export default function ArticleCard({ article, variant = "internal" }: ArticleCa
   // Get article details
   const { title, author, datePublished, thumbnail, authorDP } = article;
   const text = 'content' in article ? article.content : article.summary;
-  const date = new Date(datePublished).toLocaleDateString('en-US', {
+  const date = datePublished ? new Date(datePublished).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+  }) : '';
   
   // Generate Slug or use Link
   const link = article.articleLink 
