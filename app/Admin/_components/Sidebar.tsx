@@ -2,31 +2,46 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image"; 
+import { authClient } from "@/lib/auth-client";
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const pathName = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authClient.signOut();
+      router.push("/admin/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   const navItems = [
     {
       name: "Dashboard",
-      href: "/dashboard",
+      href: "/admin/dashboard",
       icon: "/dashboard/dashboard-icon.svg"
     },
     {
       name: "Signee Approvals",
-      href: "/signee-approvals",
+      href: "/admin/signee-approvals",
       icon: "/dashboard/signee-icon.svg"
     },{
       name: "Publications",
-      href: "/publications",
+      href: "/admin/publications",
       icon: "/dashboard/publication-icon.svg"
     },
     {
       name: "Users",
-      href: "/users",
+      href: "/admin/users",
       icon: "/dashboard/user-icon.svg"
     }
   ]
@@ -76,12 +91,12 @@ export default function Sidebar() {
       <nav className="flex-1 flex flex-col gap-7 py-6 overflow-y-auto text-2xl">
         
         {navItems.map((item) => {
-          const isActive = item.name === pathName;
+          const isActive = pathName === item.href;
 
           return (
             <Link
               key={item.href}
-              href= "#"
+              href={item.href}
               className={`
                 flex items-center font-instrument p-3 rounded-lg transition-all 
                 duration-300 ease-in-out hover:bg-[#4c595f77] hover:text-white 
@@ -120,12 +135,14 @@ export default function Sidebar() {
 
       <div className="flex border-t-2 border-[#ffffff41] pt-5 ">
         <button
-          onClick={() => console.log("Logging out...")}
+          onClick={handleLogout}
+          disabled={isLoggingOut}
           className={
           `flex items-center gap-5 items-center p-2 rounded-lg 
           transition-all duration-300 ease-in-out cursor-pointer
           active:bg-[#1A2F1A] 
           hover:bg-[#1A2F1A80]/50
+          disabled:opacity-50 disabled:cursor-not-allowed
 
           ${isCollapsed ? "m-auto": "ml-auto"}
         `}
@@ -137,7 +154,7 @@ export default function Sidebar() {
           transition-all duration-300 origin-left
           ${isCollapsed ? "hidden" : "block"}
           `}>
-            Logout
+            {isLoggingOut ? "Logging out..." : "Logout"}
         </span>
           <Image 
             src="/dashboard/logout-icon.svg"
