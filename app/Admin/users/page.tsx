@@ -3,6 +3,7 @@
 import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Sidebar from "../_components/Sidebar";
 import { NewUserPanel } from "../_components/NewUserPanel";
 import { EditUserPanel } from "../_components/EditUserPanel";
 import { DeleteUserBox } from "../_components/DeleteUserBox";
@@ -62,140 +63,147 @@ export default function UsersPage() {
     });
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 size={32} className="animate-spin text-gray-400" />
-      </div>
-    );
-  }
-
   return (
-    <div className="flex flex-col gap-6 relative">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">User Management</h1>
-          <p className="text-gray-600 mt-1">
-            Manage admin users and permissions
-          </p>
-        </div>
-
-        <button
-          onClick={() => setPanel({ type: "new" })}
-          className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-lg font-medium hover:bg-gray-800"
-        >
-          <Plus size={18} />
-          Add User
-        </button>
-      </div>
-
-      {/* New User Panel */}
-      {panel.type === "new" && (
-        <NewUserPanel
-          roles={roles}
-          onCancel={() => setPanel({ type: "none" })}
-          onSuccess={handleSuccess}
-        />
-      )}
-
-      {/* Edit User Panel */}
-      {panel.type === "edit" && (
-        <EditUserPanel
-          user={panel.user}
-          roles={roles}
-          onClose={() => setPanel({ type: "none" })}
-          onSuccess={handleSuccess}
-        />
-      )}
-
-      {/* Delete Confirmation Modal */}
-      {panel.type === "delete" && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <DeleteUserBox
-            id={panel.user.id}
-            name={panel.user.name}
-            onCancel={() => setPanel({ type: "none" })}
-            onSuccess={handleSuccess}
-          />
-        </div>
-      )}
-
-      {/* Users List */}
-      {users.length === 0 ? (
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-12 text-center">
-          <p className="text-gray-500">No users found</p>
-          <p className="text-gray-400 text-sm mt-1">
-            Click &quot;Add User&quot; to create your first user
-          </p>
-        </div>
-      ) : (
-        users.map((user) => (
-          <div
-            key={user.id}
-            className="bg-white border border-gray-200 rounded-xl shadow-sm p-6"
-          >
-            <div className="flex justify-between items-start mb-3">
-              <div className="flex items-center gap-4">
-                {user.image ? (
-                  <img
-                    src={user.image}
-                    alt={user.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                ) : (
-                  <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    {user.name}
-                  </h2>
-                  <p className="text-gray-600 text-sm">{user.email}</p>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <span className="bg-black text-white text-xs font-medium px-3 py-1 rounded-full">
-                  {user.role?.role ?? "Unknown"}
-                </span>
-                <span
-                  className={`text-xs font-medium px-3 py-1 rounded-full ${
-                    user.emailVerified
-                      ? "bg-green-100 text-green-800"
-                      : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
-                  {user.emailVerified ? "Verified" : "Unverified"}
-                </span>
-              </div>
+    <div className="flex w-full m-auto max-w-[1440px] bg-[#FFF4E0] justify-center items-center">
+      <Sidebar />
+      <div className="flex flex-col items-start w-full h-[1080px] overflow-auto">
+        <div className='w-full h-[109px] border-b-2 border-[#A2A2A299]/60'></div>
+        <div className='w-[1074px] flex flex-col flex-1 pl-6 pr-12 py-9'>
+          {/* Header */}
+          <div className='flex flex-col gap-0.5 mb-8'>
+            <div className='flex justify-between items-center'>
+              <div className='font-bold text-4xl'>User Management</div>
+              <button
+                onClick={() => setPanel({ type: "new" })}
+                className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-lg font-medium hover:bg-gray-800"
+              >
+                <Plus size={18} />
+                Add User
+              </button>
             </div>
-
-            <p className="text-sm text-gray-500 mb-4">
-              Created {formatDate(user.createdAt)}
-            </p>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={() => setPanel({ type: "edit", user })}
-                className="flex items-center gap-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-100"
-              >
-                <Pencil size={16} />
-                Edit
-              </button>
-
-              <button
-                onClick={() => setPanel({ type: "delete", user })}
-                className="flex items-center gap-2 text-sm font-medium text-white bg-red-600 rounded-lg px-3 py-2 hover:bg-red-700"
-              >
-                <Trash2 size={16} />
-                Delete
-              </button>
+            <div>
+              <p className='font-medium text-lg text-black/60 text-balance'>
+                Manage admin users and permissions
+              </p>
             </div>
           </div>
-        ))
-      )}
+
+          {isLoading ? (
+            <div className="flex items-center justify-center min-h-[400px]">
+              <Loader2 size={32} className="animate-spin text-gray-400" />
+            </div>
+          ) : (
+            <div className="w-full py-2 px-1 flex flex-col gap-4">
+              {/* New User Panel */}
+              {panel.type === "new" && (
+                <NewUserPanel
+                  roles={roles}
+                  onCancel={() => setPanel({ type: "none" })}
+                  onSuccess={handleSuccess}
+                />
+              )}
+
+              {/* Edit User Panel */}
+              {panel.type === "edit" && (
+                <EditUserPanel
+                  user={panel.user}
+                  roles={roles}
+                  onClose={() => setPanel({ type: "none" })}
+                  onSuccess={handleSuccess}
+                />
+              )}
+
+              {/* Delete Confirmation Modal */}
+              {panel.type === "delete" && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                  <DeleteUserBox
+                    id={panel.user.id}
+                    name={panel.user.name}
+                    onCancel={() => setPanel({ type: "none" })}
+                    onSuccess={handleSuccess}
+                  />
+                </div>
+              )}
+
+              {/* Users List */}
+              {users.length === 0 ? (
+                <div className="bg-white/50 border border-gray-200 rounded-xl p-12 text-center">
+                  <p className="text-black/60">No users found</p>
+                  <p className="text-black/40 text-sm mt-1">
+                    Click &quot;Add User&quot; to create your first user
+                  </p>
+                </div>
+              ) : (
+                users.map((user) => (
+                  <div
+                    key={user.id}
+                    className="bg-white border border-gray-200 rounded-xl shadow-sm p-6"
+                  >
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex items-center gap-4">
+                        {user.image ? (
+                          <img
+                            src={user.image}
+                            alt={user.name}
+                            className="w-12 h-12 rounded-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium">
+                            {user.name.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <div>
+                          <h2 className="text-xl font-semibold text-gray-900">
+                            {user.name}
+                          </h2>
+                          <p className="text-gray-600 text-sm">{user.email}</p>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <span className="bg-black text-white text-xs font-medium px-3 py-1 rounded-full">
+                          {user.role?.role ?? "Unknown"}
+                        </span>
+                        <span
+                          className={`text-xs font-medium px-3 py-1 rounded-full ${
+                            user.emailVerified
+                              ? "bg-green-100 text-green-800"
+                              : "bg-yellow-100 text-yellow-800"
+                          }`}
+                        >
+                          {user.emailVerified ? "Verified" : "Unverified"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-sm text-gray-500 mb-4">
+                      Created {formatDate(user.createdAt)}
+                    </p>
+
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setPanel({ type: "edit", user })}
+                        className="flex items-center gap-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg px-3 py-2 hover:bg-gray-100"
+                      >
+                        <Pencil size={16} />
+                        Edit
+                      </button>
+
+                      <button
+                        onClick={() => setPanel({ type: "delete", user })}
+                        className="flex items-center gap-2 text-sm font-medium text-white bg-red-600 rounded-lg px-3 py-2 hover:bg-red-700"
+                      >
+                        <Trash2 size={16} />
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

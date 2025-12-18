@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import ArticleCard from "./components/ArticleCard";
+import { Header } from "../_components/Header";
 
 // Fonts
 import { Instrument_Sans, Hedvig_Letters_Sans, Instrument_Serif } from "next/font/google";
@@ -167,8 +168,10 @@ export default function Publications() {
   const { filteredExternal, filteredInternal } = useMemo(() => {
     if (!searchQuery) {
       return { 
-        filteredExternal: MOCK_EXTERNAL_PUBLICATIONS, 
-        filteredInternal: MOCK_INTERNAL_PUBLICATIONS 
+        // filteredExternal: MOCK_EXTERNAL_PUBLICATIONS, 
+        // filteredInternal: MOCK_INTERNAL_PUBLICATIONS 
+        filteredExternal: [],
+        filteredInternal: [],
       };
     }
     
@@ -181,8 +184,10 @@ export default function Publications() {
       matches(article.author);
 
     return {
-      filteredExternal: MOCK_EXTERNAL_PUBLICATIONS.filter(filterFn),
-      filteredInternal: MOCK_INTERNAL_PUBLICATIONS.filter(filterFn),
+      // filteredExternal: MOCK_EXTERNAL_PUBLICATIONS.filter(filterFn),
+      // filteredInternal: MOCK_INTERNAL_PUBLICATIONS.filter(filterFn),
+      filteredExternal: [],
+      filteredInternal: [],
     };
   }, [searchQuery]);
 
@@ -201,6 +206,9 @@ export default function Publications() {
       ${hedvigLetterSans.className} relative overflow-hidden bg-white max-w-screen min-h-screen text-[#373F2A]  
       [&>section_h2]:${instrumentSans.className} [&>section_h2]:font-semibold [&>section_h2]:text-[#373F2A]`}
     >
+      {/* HEADER */}
+      <Header variant="filled" />
+
       {/* SEARCH BAR SECTION */}
       <section className={`flex flex-col justify-center sm:justify-end items-center min-h-[40dvh] md:min-h-[420px] lg:min-h-[520px] p-12 sm:p-12 md:p-18 bg-[url('/assets/publications-hero-img.png')]`}>
         <div className={`max-w-[940px] flex flex-col justify-center md:justify-end items-center gap-5 sm:gap-10 lg:gap-12 [&>*]:drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)]`}>
@@ -302,11 +310,11 @@ export default function Publications() {
           </div>
           <div className={`flex flex-col justify-center items-center p-4 gap-4 text-center`}>
             <p className={`text-sm sm:text-base text-[#625541]`}>Send your submission here:</p>
-            <button className={`flex gap-2 justify-center items-center bg-[#4D724D] text-white px-6 py-2 rounded-lg whitespace-nowrap text-sm sm:text-base hover:bg-[#373F2A] transition-colors duration-300`}>
-              <span>Submit your Article</span>
+            <a href="mailto:css.cics@ust.edu.ph" className={`flex gap-2 justify-center items-center bg-[#4D724D] text-white px-6 py-2 rounded-lg whitespace-nowrap text-sm sm:text-base hover:bg-[#373F2A] transition-colors duration-300`}>
+              <span>css.cics@ust.edu.ph</span>
               <img src="/assets/send.svg" alt="" />
-            </button>
-          </div>
+            </a>
+          </div>  
         </div>
       </section>
     </main>

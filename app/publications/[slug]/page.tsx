@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Instrument_Sans } from "next/font/google";
+import { Header } from "@/app/_components/Header";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
@@ -21,6 +22,9 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <main className="bg-white text-[#1C1C1C]">
+      {/* HEADER */}
+      <Header variant="filled" noMargin />
+
       <section className="relative w-full h-[360px] sm:h-[420px] md:h-[520px] flex items-end">
         <Image
           src={article.heroImage}

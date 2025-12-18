@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronRight } from 'lucide-react';
 import React from 'react';
 
@@ -17,6 +19,8 @@ export default function ReadMoreCard({
     const defaultBgStyle = backgroundImg ? { backgroundImage: `url(${backgroundImg})` } : undefined;
     const hoverBgStyle = hoverBackgroundImg ? { backgroundImage: `url(${hoverBackgroundImg})` } : undefined;
 
+    const [expanded, setExpanded] = React.useState(false);
+
     return (
         <div className={`card-container group relative flex-1 h-[500px] md:h-[506px] rounded-4xl overflow-hidden shadow-lg ${classCss || ''}`}>
 
@@ -31,9 +35,15 @@ export default function ReadMoreCard({
 
             <div className="readMoreCard-description relative z-10 h-full flex flex-col justify-end bg-linear-to-t from-black/80 via-black/40 to-transparent p-6 pb-8 transition-all duration-300">
                 <h1 className="text-2xl font-semibold drop-shadow-lg text-white text-center">{title}</h1>
-                <p className="mt-2 text-center drop-shadow-md text-gray-200 line-clamp-2">{description}</p>
-                <button className="mt-4 px-6 py-3 border border-white rounded-full text-white hover:bg-white hover:text-black transition-colors w-full cursor-pointer flex items-center justify-center gap-1">
-                    Read More <ChevronRight/>
+                <p className={`mt-2 text-center drop-shadow-md text-gray-200 ${expanded ? "" : "line-clamp-2"}`}>
+                    {description}
+                </p>
+                <button
+                    type="button"
+                    className="mt-4 px-6 py-3 border border-white rounded-full text-white hover:bg-white hover:text-black transition-colors w-full cursor-pointer flex items-center justify-center gap-1"
+                    onClick={() => setExpanded(e => !e)}
+                >
+                    {expanded ? "Show Less" : "Read More"} <ChevronRight className={expanded ? 'rotate-90 transition-transform' : 'transition-transform'} />
                 </button>
             </div>
         </div>

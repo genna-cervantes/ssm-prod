@@ -5,7 +5,23 @@ import { Inter } from "next/font/google";
 const instrumentSans = Instrument_Sans({ subsets: ["latin"] });
 const inter = Inter({ subsets: ["latin"] });
 
-export default function ArticleCard({ article, variant = "internal" }) {
+type Article = {
+  title: string;
+  author: string;
+  datePublished: string | Date;
+  thumbnail: string;
+  authorDP: string;
+  content?: string;
+  summary?: string;
+  articleLink?: string;
+};
+
+type ArticleCardProps = {
+  article: Article;
+  variant?: "internal" | "external";
+};
+
+export default function ArticleCard({ article, variant = "internal" }: ArticleCardProps) {
   
   // Get article details
   const { title, author, datePublished, thumbnail, authorDP } = article;
@@ -17,9 +33,8 @@ export default function ArticleCard({ article, variant = "internal" }) {
   });
   
   // Generate Slug or use Link
-  const link = 'articleLink' in article
-    ? article.articleLink
-    : `/publications/${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+  const link = article.articleLink 
+    ?? `/publications/${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
 
   const CardContent = () => {
     return (
