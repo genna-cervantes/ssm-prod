@@ -70,7 +70,7 @@ export default async function Home() {
             </div>
             <div className="hero-cta flex  flex-row gap-4 w-full sm:w-auto mt-4">
               <button className="bg-green-6 text-white px-1.5 lg:px-8 py-4 rounded-xl text-s text-m lg:text-lg hover:bg-[#3a583a] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 w-full sm:w-auto">Sign the petition now</button>
-              <button className="bg-white/80 backdrop-blur-2xl text-black lg:px-12 py-4 rounded-xl text-s lg:text-lg hover:bg-green-600 hover:text-white transition-all w-3/4 sm:w-auto">Learn more</button>
+              <Link href="/publications" className="bg-white/80 backdrop-blur-2xl text-black lg:px-12 py-4 rounded-xl text-s lg:text-lg hover:bg-green-600 hover:text-white transition-all w-3/4 sm:w-auto">Learn more</Link>
             </div>
           </div>
           
@@ -241,7 +241,7 @@ export default async function Home() {
               <button className="px-6 md:px-8 py-3 bg-white text-[#395739] rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
                 Sign the Petition Now
               </button>
-              <Link href="/about" className="px-6 md:px-8 py-3 border-2 border-white rounded-lg font-semibold transition-colors text-brown-2 hover:bg-white hover:text-[#395739] text-center">
+              <Link href="/publications" className="px-6 md:px-8 py-3 border-2 border-white rounded-lg font-semibold transition-colors text-brown-2 hover:bg-white hover:text-[#395739] text-center">
                 Learn About Our Work
               </Link>
             </div>
@@ -270,9 +270,9 @@ export default async function Home() {
              <CommunityCarousel notes={NOTES_DATA} />
           </div>
 
-          <button className="mt-10 px-10 py-3 border border-green-600 text-green-600 rounded-lg font-medium hover:bg-green-600 hover:text-white transition-colors uppercase tracking-widest text-sm z-40 relative">
+          {/* <button className="mt-10 px-10 py-3 border border-green-600 text-green-600 rounded-lg font-medium hover:bg-green-600 hover:text-white transition-colors uppercase tracking-widest text-sm z-40 relative">
             View Community Notes
-          </button>
+          </button> */}
         </section>
       </main>
 

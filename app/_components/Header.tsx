@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import MobileMenu from './MobileMenu'; // Import the client component
+import Link from 'next/link';
 
 type HeaderProps = {
   variant?: 'transparent' | 'filled';
@@ -12,9 +13,9 @@ export const Header = ({
   variant = 'transparent', 
   logoText = "Save Sierra Madre",
   links = [
-    { label: "About SSMNAI", href: "/about" },
-    { label: "Publications", href: "/publications" },
-    { label: "Signee Notes", href: "/signee-notes" }
+    // { label: "About SSMNAI", href: "/about" },
+    // { label: "Publications", href: "/publications" },
+    // { label: "Signee Notes", href: "/signee-notes" }
   ],
   noMargin = false
 }: HeaderProps) => {
@@ -38,7 +39,7 @@ export const Header = ({
     <header className={`w-full py-6 px-8 md:px-12 flex items-center justify-between transition-colors relative z-50 ${containerClasses} ${marginClass}`}>
       
       {/* Logo Section */}
-      <div className="flex items-center gap-4">
+      <Link href="/" className="flex items-center gap-4">
         <div className="relative h-10 w-14">
             <Image 
                 src="/logo.png" 
@@ -51,7 +52,7 @@ export const Header = ({
         <span className={`hidden md:flex font-bold text-xl md:text-2xl tracking-tight ${isFilled ? 'text-white' : 'text-[#487948]'}`}>
           {logoText}
         </span>
-      </div>
+      </Link>
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex items-center gap-8 md:gap-12"> 
