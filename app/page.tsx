@@ -3,7 +3,7 @@ import { Header } from "./_components/Header";
 import PetitionProgress from "./_components/PetitionProgress";
 import CardBlock from './_components/CardBlock';
 import StatisticBar from "./_components/StatisticsBar";
-import ReadMoreCard from "./_components/ReadMoreCard"; 
+import ReadMoreCard from "./_components/readMoreCard"; 
 import CommunityCarousel from "./_components/CommunityCarousel"; 
 import { MapPin, Phone, Mail, Globe, ChevronRight, Volume2 } from 'lucide-react';
 import { getPetitionCount } from "@/services/petition.service"; 
