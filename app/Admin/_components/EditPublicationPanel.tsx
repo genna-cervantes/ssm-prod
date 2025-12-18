@@ -6,7 +6,7 @@ import { WysiwygEditor } from "./WysiwygEditor";
 import {
   updatePublicationAction,
   togglePublishAction,
-} from "@/db/actions/publications.actions";
+} from "@/actions/publications.actions";
 import type { Publication } from "@/db/services/publications.service";
 
 type EditPanelProps = {

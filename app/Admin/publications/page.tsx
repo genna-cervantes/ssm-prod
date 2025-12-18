@@ -9,7 +9,7 @@ import { EditPublicationPanel } from "../_components/EditPublicationPanel";
 import { NewPublicationPanel } from "../_components/NewPublicationPanel";
 import { DeletePublicationBox } from "../_components/DeletePublicationBox";
 import type { Publication } from "@/db/services/publications.service";
-import { getActivePublicationsAction } from "@/db/actions/publications.actions";
+import { getActivePublicationsAction } from "@/actions/publications.actions";
 
 export default function PublicationsPage() {
   const router = useRouter();

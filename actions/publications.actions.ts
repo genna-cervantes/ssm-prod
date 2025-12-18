@@ -6,7 +6,7 @@ import {
   deletePublication,
   generateUniqueSlug,
   getActivePublications,
-} from "../services/publications.service";
+} from "@/db/services/publications.service";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

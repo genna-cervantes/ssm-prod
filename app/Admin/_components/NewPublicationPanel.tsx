@@ -3,7 +3,7 @@
 import { X, Loader2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { WysiwygEditor } from "./WysiwygEditor";
-import { createPublicationAction } from "@/db/actions/publications.actions";
+import { createPublicationAction } from "@/actions/publications.actions";
 
 type NewPanelProps = {
   onCancel: () => void;

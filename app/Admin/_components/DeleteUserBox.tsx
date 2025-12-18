@@ -2,26 +2,26 @@
 
 import { Loader2 } from "lucide-react";
 import { useTransition } from "react";
-import { deletePublicationAction } from "@/actions/publications.actions";
+import { deleteUserAction } from "@/actions/users.actions";
 
-type DeletePublicationBoxProps = {
-  id: number;
-  title: string;
+type DeleteUserBoxProps = {
+  id: string;
+  name: string;
   onCancel: () => void;
   onSuccess: () => void;
 };
 
-export function DeletePublicationBox({
+export function DeleteUserBox({
   id,
-  title,
+  name,
   onCancel,
   onSuccess,
-}: DeletePublicationBoxProps) {
+}: DeleteUserBoxProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
     startTransition(async () => {
-      const result = await deletePublicationAction(id);
+      const result = await deleteUserAction(id);
       if (result.success) {
         onSuccess();
       }
@@ -31,11 +31,13 @@ export function DeletePublicationBox({
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-lg p-6 w-[450px]">
       <h2 className="text-lg font-semibold text-gray-900 mb-2">
-        Delete Publication
+        Delete User
       </h2>
 
       <p className="text-gray-700 text-sm mb-6">
-        Are you sure you want to delete &ldquo;{title}&rdquo;?
+        Are you sure you want to delete &ldquo;{name}&rdquo;?
+        <br />
+        This will also remove all associated accounts and sessions.
         <br />
         This action cannot be undone.
       </p>
@@ -61,3 +63,4 @@ export function DeletePublicationBox({
     </div>
   );
 }
+

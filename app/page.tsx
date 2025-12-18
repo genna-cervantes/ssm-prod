@@ -1,11 +1,11 @@
 import Image from 'next/image';
-import { Header } from "./components/Header";
-import PetitionProgress from "./components/PetitionProgress";
-import CardBlock from './components/CardBlock';
-import TopicCard from "./components/TopicCard";
-import StatisticBar from "./components/StatisticsBar";
-import ReadMoreCard from "./components/ReadMoreCard"; 
-import CommunityCarousel from "./components/CommunityCarousel"; 
+import { Header } from "./_components/Header";
+import PetitionProgress from "./_components/PetitionProgress";
+import CardBlock from './_components/CardBlock';
+import TopicCard from "./_components/TopicCard";
+import StatisticBar from "./_components/StatisticsBar";
+import ReadMoreCard from "./_components/ReadMoreCard"; 
+import CommunityCarousel from "./_components/CommunityCarousel"; 
 import { MapPin, Phone, Mail, Globe, ChevronRight, Volume2 } from 'lucide-react'; 
 
 
