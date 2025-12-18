@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import ArticleCard from "./components/ArticleCard";
+import { Header } from "../_components/Header";
 
 // Fonts
 import { Instrument_Sans, Hedvig_Letters_Sans, Instrument_Serif } from "next/font/google";
@@ -201,6 +202,9 @@ export default function Publications() {
       ${hedvigLetterSans.className} relative overflow-hidden bg-white max-w-screen min-h-screen text-[#373F2A]  
       [&>section_h2]:${instrumentSans.className} [&>section_h2]:font-semibold [&>section_h2]:text-[#373F2A]`}
     >
+      {/* HEADER */}
+      <Header variant="filled" />
+
       {/* SEARCH BAR SECTION */}
       <section className={`flex flex-col justify-center sm:justify-end items-center min-h-[40dvh] md:min-h-[420px] lg:min-h-[520px] p-12 sm:p-12 md:p-18 bg-[url('/assets/publications-hero-img.png')]`}>
         <div className={`max-w-[940px] flex flex-col justify-center md:justify-end items-center gap-5 sm:gap-10 lg:gap-12 [&>*]:drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)]`}>

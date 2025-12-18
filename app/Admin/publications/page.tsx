@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
+import Sidebar from "../_components/Sidebar";
 import { PublicationCard } from "../_components/PublicationCard";
 import { EditPublicationPanel } from "../_components/EditPublicationPanel";
 import { NewPublicationPanel } from "../_components/NewPublicationPanel";
@@ -44,100 +45,97 @@ export default function PublicationsPage() {
     ? publications.find((p) => p.id === editingId)
     : null;
 
-  if (loading) {
-    return (
-      <div className="flex flex-col gap-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">Publications</h1>
-            <p className="text-gray-600 mt-1">
-              Manage conservation reports and updates
-            </p>
-          </div>
-        </div>
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-12 text-center">
-          <p className="text-gray-600">Loading publications...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex flex-col gap-6 relative">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Publications</h1>
-          <p className="text-gray-600 mt-1">
-            Manage conservation reports and updates
-          </p>
-        </div>
-
-        <button
-          className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-lg font-medium hover:bg-gray-800"
-          onClick={() => {
-            setEditingId(null);
-            setCreating(true);
-          }}
-        >
-          <Plus size={18} />
-          New Publication
-        </button>
-      </div>
-
-      {creating && (
-        <NewPublicationPanel
-          onCancel={() => setCreating(false)}
-          onSuccess={handleSuccess}
-        />
-      )}
-
-      {publications.length === 0 && !creating && (
-        <div className="bg-gray-50 border border-gray-200 rounded-xl p-12 text-center">
-          <p className="text-gray-600 mb-4">No publications yet</p>
-          <button
-            onClick={() => setCreating(true)}
-            className="text-black underline hover:no-underline font-medium"
-          >
-            Create your first publication
-          </button>
-        </div>
-      )}
-
-      {publications.map((publication) =>
-        editingId === publication.id && editingPublication ? (
-          <EditPublicationPanel
-            key={publication.id}
-            publication={editingPublication}
-            onClose={() => setEditingId(null)}
-            onSuccess={handleSuccess}
-          />
-        ) : (
-          <PublicationCard
-            key={publication.id}
-            publication={publication}
-            onEdit={() => {
-              setCreating(false);
-              setEditingId(publication.id);
-            }}
-            onDelete={() => setDeletingPublication(publication)}
-          />
-        )
-      )}
-
-      {deletingPublication && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
-          <div className="relative">
-            <DeletePublicationBox
-              id={deletingPublication.id}
-              title={deletingPublication.title}
-              onCancel={() => setDeletingPublication(null)}
-              onSuccess={handleSuccess}
-            />
+    <div className="flex w-full m-auto max-w-[1440px] bg-[#FFF4E0] justify-center items-center">
+      <Sidebar />
+      <div className="flex flex-col items-start w-full h-[1080px] overflow-auto">
+        <div className='w-full h-[109px] border-b-2 border-[#A2A2A299]/60'></div>
+        <div className='w-[1074px] flex flex-col flex-1 pl-6 pr-12 py-9'>
+          {/* Header */}
+          <div className='flex flex-col gap-0.5 mb-8'>
+            <div className='flex justify-between items-center'>
+              <div className='font-bold text-4xl'>Publications</div>
+              <button
+                className="bg-black text-white flex items-center gap-2 px-4 py-2 rounded-lg font-medium hover:bg-gray-800"
+                onClick={() => {
+                  setEditingId(null);
+                  setCreating(true);
+                }}
+              >
+                <Plus size={18} />
+                New Publication
+              </button>
+            </div>
+            <div>
+              <p className='font-medium text-lg text-black/60 text-balance'>
+                Manage conservation reports and updates
+              </p>
+            </div>
           </div>
+
+          {loading ? (
+            <div className="bg-white/50 border border-gray-200 rounded-xl p-12 text-center">
+              <p className="text-black/60">Loading publications...</p>
+            </div>
+          ) : (
+            <div className="w-full py-2 px-1 flex flex-col gap-4">
+              {creating && (
+                <NewPublicationPanel
+                  onCancel={() => setCreating(false)}
+                  onSuccess={handleSuccess}
+                />
+              )}
+
+              {publications.length === 0 && !creating && (
+                <div className="bg-white/50 border border-gray-200 rounded-xl p-12 text-center">
+                  <p className="text-black/60 mb-4">No publications yet</p>
+                  <button
+                    onClick={() => setCreating(true)}
+                    className="text-black underline hover:no-underline font-medium"
+                  >
+                    Create your first publication
+                  </button>
+                </div>
+              )}
+
+              {publications.map((publication) =>
+                editingId === publication.id && editingPublication ? (
+                  <EditPublicationPanel
+                    key={publication.id}
+                    publication={editingPublication}
+                    onClose={() => setEditingId(null)}
+                    onSuccess={handleSuccess}
+                  />
+                ) : (
+                  <PublicationCard
+                    key={publication.id}
+                    publication={publication}
+                    onEdit={() => {
+                      setCreating(false);
+                      setEditingId(publication.id);
+                    }}
+                    onDelete={() => setDeletingPublication(publication)}
+                  />
+                )
+              )}
+            </div>
+          )}
+
+          {deletingPublication && (
+            <div className="fixed inset-0 flex items-center justify-center z-50">
+              <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
+              <div className="relative">
+                <DeletePublicationBox
+                  id={deletingPublication.id}
+                  title={deletingPublication.title}
+                  onCancel={() => setDeletingPublication(null)}
+                  onSuccess={handleSuccess}
+                />
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

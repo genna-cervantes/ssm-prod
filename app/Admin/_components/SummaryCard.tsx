@@ -1,53 +1,49 @@
 import Image from "next/image";
 import type React from "react";
 
-interface SummaryCardProps {
-  icon: string; 
-  title: string;
-  value: string | number;
-  trend?: string;
-  isPositive?: boolean;
+interface SummaryData {
+  totalSignatures: number;
+  activeUsers: number;
+  totalPublications: number;
 }
 
-const summaryData = [
-  {
-    id: 1,
-    title: "Total Signatures",
-    value: "12,847",
-    trend: "+324 this week",
-    isPositive: true,
-    icon: "/summary/total-sig-icon.svg",
-  },
-  {
-    id: 2,
-    title: "Active Users",
-    value: "2,456",
-    trend: "+142 this week",
-    isPositive: true,
-    icon: "/summary/summary-users-icon.svg",
-  },
-  {
-    id: 3,
-    title: "Publications",
-    value: "48",
-    trend: "+3 this month",
-    isPositive: true,
-    icon: "/summary/summary-published-icon.svg",
-  },
-  {
-    id: 4,
-    title: "Total Signatures",
-    value: "12,847",
-    trend: "+324 this week",
-    isPositive: true,
-    icon: "/summary/summary-engagement-icon.svg",
-  },
-];
+interface SummaryCardsProps {
+  summaryData: SummaryData;
+}
 
-export default function SummaryCards() {
+export default function SummaryCards({ summaryData }: SummaryCardsProps) {
+  const cards = [
+    {
+      id: 1,
+      title: "Total Signatures",
+      value: summaryData.totalSignatures.toLocaleString(),
+      icon: "/summary/total-sig-icon.svg",
+    },
+    {
+      id: 2,
+      title: "Active Users",
+      value: summaryData.activeUsers.toLocaleString(),
+      icon: "/summary/summary-users-icon.svg",
+    },
+    {
+      id: 3,
+      title: "Publications",
+      value: summaryData.totalPublications.toLocaleString(),
+      icon: "/summary/summary-published-icon.svg",
+    },
+    {
+      id: 4,
+      title: "Engagement Rate",
+      value: summaryData.totalSignatures > 0 
+        ? `${Math.round((summaryData.activeUsers / summaryData.totalSignatures) * 100)}%`
+        : "0%",
+      icon: "/summary/summary-engagement-icon.svg",
+    },
+  ];
+
   return (
     <div className="flex justify-between flex-wrap">
-      {summaryData.slice(0, 4).map((card) => (
+      {cards.map((card) => (
         <div
           key={card.id}
           className="
@@ -71,16 +67,6 @@ export default function SummaryCards() {
           </div>
 
           <div className="font-semibold text-xl">{card.value}</div>
-
-          {card.trend && (
-            <div
-              className={`text-xs font-medium ${
-                card.isPositive ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {card.trend}
-            </div>
-          )}
         </div>
       ))}
     </div>

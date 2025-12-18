@@ -2,20 +2,20 @@ import Image from 'next/image';
 import { Header } from "./_components/Header";
 import PetitionProgress from "./_components/PetitionProgress";
 import CardBlock from './_components/CardBlock';
-import TopicCard from "./_components/TopicCard";
 import StatisticBar from "./_components/StatisticsBar";
 import ReadMoreCard from "./_components/ReadMoreCard"; 
 import CommunityCarousel from "./_components/CommunityCarousel"; 
-import { MapPin, Phone, Mail, Globe, ChevronRight, Volume2 } from 'lucide-react'; 
-
-
+import { MapPin, Phone, Mail, Globe, ChevronRight, Volume2 } from 'lucide-react';
+import { getPetitionCount } from "@/services/petition.service"; 
+import Link from 'next/link';
+// import TopicCard from "./_components/TopicCard";
 
 const NOTES_DATA = [
-  { date: "Oct 8, 2025", quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, adipisci dignissimos aliquid accusamus nesciunt consectetur atque rem eos, placeat, id corrupti cupiditate laborum quo facilis quidem magnam distinctio similique optio!.", author: "Anonymous" },
-  { date: "Oct 9, 2025", quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, adipisci dignissimos aliquid accusamus nesciunt consectetur atque rem eos, placeat, id corrupti cupiditate laborum quo facilis quidem magnam distinctio similique optio!", author: "Anonymous" },
-  { date: "Oct 10, 2025", quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, adipisci dignissimos aliquid accusamus nesciunt consectetur atque rem eos", author: "Anonymous" },
-  { date: "Oct 11, 2025", quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, adipisci dignissimos aliquid accusamus nesciunt consectetur atque rem eos, placeat, id corrupti cupiditate laborum quo facilis quidem magnam distinctio similique optio!", author: "Anonymous" },
-  { date: "Oct 12, 2025", quote: "Lorem ipsum dolor sit amet consectetur adipisicing elit. ", author: "Anonymous" }
+  { date: "December 19, 2025", quote: "Save the Sierra Madre—hindi lang ’to bundok, ito yung shield natin laban sa bagyo, and once we lose it, wala nang reset button.", author: "Anonymous" },
+  { date: "December 19, 2025", quote: "Save the Sierra Madre—hindi lang ’to bundok, ito yung shield natin laban sa bagyo, and once we lose it, wala nang reset button.", author: "Anonymous" },
+  { date: "December 19, 2025", quote: "Save the Sierra Madre—hindi lang ’to bundok, ito yung shield natin laban sa bagyo, and once we lose it, wala nang reset button.", author: "Anonymous" },
+  { date: "December 19, 2025", quote: "Save the Sierra Madre—hindi lang ’to bundok, ito yung shield natin laban sa bagyo, and once we lose it, wala nang reset button.", author: "Anonymous" },
+  { date: "December 19, 2025", quote: "Save the Sierra Madre—hindi lang ’to bundok, ito yung shield natin laban sa bagyo, and once we lose it, wala nang reset button.", author: "Anonymous" },
 ];
 
 const KALIWA_STATS = [
@@ -44,7 +44,9 @@ const REASON_CARDS = [
 }
 ];
 
-export default function Home() {
+export default async function Home() {
+  const signedCount = await getPetitionCount();
+
   return (
     <div className="w-full font-sans">
 
@@ -94,7 +96,7 @@ export default function Home() {
 
             <div className="w-full max-w-6xl px-4 pb-40">
               <div className="backdrop-blur-md text-2xl bg-green-4/10 p-6 md:p-12 rounded-2xl shadow-2xl border border-white/10 flex justify-center">
-                <PetitionProgress signedCount={78041} goalCount={128095} />
+                <PetitionProgress signedCount={signedCount} goalCount={128095} />
               </div>
             </div>
           </div>
@@ -117,18 +119,30 @@ export default function Home() {
         <ReadMoreCard 
         classCss="hidden md:block"
           backgroundImg="/images/mellisa_typhoon.jpg" 
-          hoverBackgroundImg="/images/sierrabest.jpg" />
+          hoverBackgroundImg="/images/sierrabest.jpg"
+          title='Typhoon Shield'
+          description='At 6,283 feet tall and 540 kilometers long, the Sierra Madre shields Luzon’s eastern coast from powerful typhoons coming from the Pacific Ocean.'
+           />
         <ReadMoreCard 
-          backgroundImg="/images/sierrabest.jpg" 
-          hoverBackgroundImg="/images/mellisa_typhoon.jpg" />
+          backgroundImg="/images/mellisa_typhoon.jpg" 
+          hoverBackgroundImg="/images/sierrabest.jpg"
+          title='Water Source'
+          description='The Sierra Madre contributes significantly to the Philippines’ water supply, hosting several major watersheds that provide irrigation, drinking water, and hydroelectric power.'
+           />
         <ReadMoreCard 
         classCss="hidden md:block"
           backgroundImg="/images/mellisa_typhoon.jpg" 
-          hoverBackgroundImg="/images/sierrabest.jpg" />
+          hoverBackgroundImg="/images/sierrabest.jpg" 
+          title='Biodiversity Hotspot'
+          description='The Sierra Madre is recognized as a biodiversity hotspot, serving as a home to numerous endemic plant and animal species, many of which are found nowhere else in the world.'
+          />
         <ReadMoreCard 
         classCss="hidden md:block"
           backgroundImg="/images/mellisa_typhoon.jpg" 
-          hoverBackgroundImg="/images/sierrabest.jpg" />
+          hoverBackgroundImg="/images/sierrabest.jpg"
+          title='Ancestral Domain'
+          description='For indigenous communities, such as the Agta–Dumagat–Remontado, the Sierra Madre is an ancestral domain that sustains their culture, livelihoods, and traditional way of life.'
+           />
       </div>
     </section>
 
@@ -141,10 +155,10 @@ export default function Home() {
             <p className="text-lg md:text-2xl text-gray-200 max-w-5xl leading-relaxed mb-10">
               The Sierra Madre faces severe threats from illegal logging, mining, destructive agricultural practices, and infrastructure projects, which together cause forest degradation, loss of biodiversity, and weaken its vital role as a natural barrier protecting communities from storms.
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
+            {/* <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
               <button className="bg-white text-black px-12 py-4 lg:px-20 rounded-xl text-lg font-bold hover:bg-gray-200 transition-colors shadow-lg flex items-center text-center justify-center">Read more <ChevronRight/> </button>
               <button className="bg-transparent border-white border-2 px-12 lg:px-20 text-white py-4 rounded-xl text-lg font-bold hover:bg-white hover:text-black transition-colors flex items-center gap-2 text-center justify-center">Listen <Volume2/></button>
-            </div>
+            </div> */}
           </div>
           
           <div className="w-full flex flex-col shadow-2xl mx-auto">
@@ -185,7 +199,7 @@ export default function Home() {
             ))}
           </div>
           
-          <div>
+          {/* <div>
             <h1 className="title-divider font-semibold text-[24px] leading-8 my-8 text-green-6">What You Should Know</h1>
           </div>
 
@@ -210,7 +224,7 @@ export default function Home() {
               <TopicCard img="" desc="xx.xxx.xxxx" title="" />
               <hr />
             </div>
-          </div>
+          </div> */}
         </section>
 
         {/* Voice Section */}
@@ -227,9 +241,9 @@ export default function Home() {
               <button className="px-6 md:px-8 py-3 bg-white text-[#395739] rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
                 Sign the Petition Now
               </button>
-              <button className="px-6 md:px-8 py-3 border-2 border-white rounded-lg font-semibold transition-colors text-brown-2 hover:bg-white hover:text-[#395739] text-center">
+              <Link href="/about" className="px-6 md:px-8 py-3 border-2 border-white rounded-lg font-semibold transition-colors text-brown-2 hover:bg-white hover:text-[#395739] text-center">
                 Learn About Our Work
-              </button>
+              </Link>
             </div>
             <p className="text-base md:text-xl font-serif italic opacity-90 text-brown-2">
               Every signature brings us closer to protecting Sierra Madre. Share the petition with your family and friends.

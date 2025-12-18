@@ -33,7 +33,7 @@ const initialSubmissions: Submission[] = [
 
 export default function SigneeApproval() {
 
-  const [submissions, setSubmissions] = useState<Submission[]>(initialSubmissions);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
 
   const handleApprove = (id: string) => {
     setSubmissions(submissions.map((s) => (s.id === id ? { ...s, status: "approved" } : s)))
@@ -62,7 +62,7 @@ export default function SigneeApproval() {
             </div>
           </div> 
           <div className="w-full py-2 px-1 flex flex-col gap-4">
-            {submissions.map((submission) => (
+            {submissions.length > 0 ? submissions.map((submission) => (
             <Approvals
               key={submission.id}
               submission={submission}
@@ -70,7 +70,7 @@ export default function SigneeApproval() {
               onReject={handleReject}
               onDelete={handleDelete}
             />
-          ))}
+          )) : <div className="flex justify-center items-center h-full">No submissions found</div>}
           </div>
         </div>
       </div>

@@ -5,17 +5,19 @@ type HeaderProps = {
   variant?: 'transparent' | 'filled';
   logoText?: string;
   links?: { label: string; href: string }[];
+  noMargin?: boolean;
 };
 
 export const Header = ({ 
   variant = 'transparent', 
   logoText = "Save Sierra Madre",
   links = [
-    { label: "About SSMNAI", href: "#" },
-    { label: "Publications", href: "#" },
-    { label: "Signee Notes", href: "#-notes" }
-  ] 
-}: HeaderProps) => { // Added simple type definition for better readability
+    { label: "About SSMNAI", href: "/about" },
+    { label: "Publications", href: "/publications" },
+    { label: "Signee Notes", href: "/signee-notes" }
+  ],
+  noMargin = false
+}: HeaderProps) => {
   
   const isFilled = variant === 'filled';
 
@@ -30,8 +32,10 @@ export const Header = ({
 
   const textColor = isFilled ? "text-white" : "text-black/80 hover:text-black";
 
+  const marginClass = noMargin ? '' : 'mb-6';
+
   return (
-    <header className={`w-full mt-5 py-6 px-8 md:px-12 flex items-center justify-between transition-colors relative z-50 rounded-xl ${containerClasses}`}>
+    <header className={`w-full py-6 px-8 md:px-12 flex items-center justify-between transition-colors relative z-50 ${containerClasses} ${marginClass}`}>
       
       {/* Logo Section */}
       <div className="flex items-center gap-4">
