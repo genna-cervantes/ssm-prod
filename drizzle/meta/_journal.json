@@ -5,8 +5,29 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1765594781255,
-      "tag": "0000_big_azazel",
+      "when": 1765623091937,
+      "tag": "0000_sticky_ezekiel",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765624103830,
+      "tag": "0001_seed_roles",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765624413219,
+      "tag": "0002_add_default_role",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1765700000000,
+      "tag": "0003_update_publications",
       "breakpoints": true
     }
   ]
