@@ -32,3 +32,11 @@
   font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
 }
 
+.bg-signee-notes-main {
+  background-image: url('/assets/signee-notes-main.png');
+}
+
+.bg-signee-notes-add-your-voice {
+  background-image: url('/assets/signee-notes-add-your-voice.png');
+}
+
