@@ -2,8 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { signPetition } from "../services/petition.service";
-import { addNote } from "../services/note.service";
+import { getPetitionCount, signPetition } from "../services/petition.service";
+import { addNote, getPetitionNotes, getPetitionNotesCount } from "../services/note.service";
 
 /**
  * Zod Schemas
@@ -23,9 +23,42 @@ const AddNoteSchema = z.object({
   note: z.string().max(1000).optional(),
 });
 
-/**
- * Page 1 action - create a petition
- */
+export async function getPetitionCountAction() {
+  try {
+    const petitionCount = await getPetitionCount();
+    return { ok: true, data: petitionCount };
+    
+  }catch(err){
+    console.error(err);
+    return { ok: false, error: `Failed to get petition count. ${err instanceof Error ? err.message : "Unknown error"}` };
+  }
+}
+
+export async function getPetitionNotesCountAction() {
+  try {
+  const petitionNotesCount = await getPetitionNotesCount();
+    return { ok: true, data: petitionNotesCount };
+    
+  }catch(err){
+    console.error(err);
+    return { ok: false, error: `Failed to get petition notes count. ${err instanceof Error ? err.message : "Unknown error"}` };
+  }
+
+}
+
+export async function getPetitionNotesAction(page: number = 1, limit: number = 9) {
+  try{
+
+    const petitionNotes = await getPetitionNotes(page, limit);
+
+    return { ok: true, data: petitionNotes };
+
+  }catch(err){
+    console.error(err);
+    return { ok: false, error: `Failed to get petition notes. ${err instanceof Error ? err.message : "Unknown error"}` };
+
+  }
+}
 
 export async function signPetitionAction(formData: FormData) {
   const data = SignPetitionSchema.parse({
@@ -40,10 +73,6 @@ export async function signPetitionAction(formData: FormData) {
 
   // redirect(`/petitions/${petition.petitionId}/note`);
 }
-
-/**
- * Page 2 action - add a note
- */
 
 export async function addPetitionNoteAction(formData: FormData) {
   const data = AddNoteSchema.parse({

@@ -1,8 +1,9 @@
 import "server-only";
 
 import { db } from "@/src/db";
-import { petitionsTable } from "@/src/db/schema";
+import { notesTable, petitionsTable } from "@/src/db/schema";
 import { count, desc, gte } from "drizzle-orm";
+import { formatWeekLabel } from '../lib/utils';
 
 export type CreatePetitionInput = {
   firstName: string;
@@ -108,9 +109,4 @@ function getWeekStart(date: Date): Date {
   return new Date(d.setDate(diff));
 }
 
-/* Helper function to format week label */
-function formatWeekLabel(date: Date): string {
-  const month = date.toLocaleDateString('en-US', { month: 'short' });
-  const day = date.getDate();
-  return `${month} ${day}`;
-}
+

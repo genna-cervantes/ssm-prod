@@ -1,8 +1,8 @@
 "use server";
 
 import { or, ilike } from 'drizzle-orm';
-import { db } from "@/db/index";
-import { publicationsTable } from "@/db/schema";
+import { db } from "../db/index";
+import { publicationsTable } from "../db/schema";
 
 export async function searchPublicationAction(toSearch: string) {
     const matchedPublications = await db

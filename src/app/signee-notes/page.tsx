@@ -1,10 +1,24 @@
 import { Header } from '../_components/Header'
-import { Mail, Mountain, Pen } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Mail, Mountain, Pen } from 'lucide-react'
 import Footer from '../_components/Footer'
 import SigneeNote from './_components/SigneeNote'
 import Link from 'next/link'
+import { getPetitionCountAction, getPetitionNotesAction, getPetitionNotesCountAction } from '@/src/actions/petition.actions'
 
-const SigneeNotesPage = () => {
+const SigneeNotesPage = async ({ searchParams }: { searchParams: { page: string, limit: string } }) => {
+
+    const page = Number(searchParams.page) || 1;
+    const limit = Number(searchParams.limit) || 9;
+
+    const { ok: petitionCountOk, data: petitionCount } = await getPetitionCountAction();
+    const { ok: petitionNotesCountOk, data: petitionNotesCount } = await getPetitionNotesCountAction();
+
+    const totalPages = petitionNotesCountOk && petitionNotesCount ? Math.ceil(petitionNotesCount / limit) : 1;
+    const hasPrevious = page > 1;
+    const hasNext = page < totalPages;
+
+    const { ok: petitionNotesOk, data: petitionNotes } = await getPetitionNotesAction(page, limit);
+
   return (
     <div className="w-full ">
         <Header
@@ -24,12 +38,12 @@ const SigneeNotesPage = () => {
                 <div className='w-1/3 text-amber-100 flex flex-col items-center justify-center'>
                     <Mail className='w-14 h-14' />
                     <p>Messages Shared</p>
-                    <p className='pt-1 text-3xl font-semibold'>12</p>
+                    <p className='pt-1 text-3xl font-semibold'>{petitionNotesCountOk ? petitionNotesCount : "-"}</p>
                 </div>
                 <div className='w-1/3 text-amber-100 flex flex-col items-center justify-center'>
                     <Pen className='w-14 h-14' />
                     <p>Peitition Signatures</p>
-                    <p className='pt-1 text-3xl font-semibold'>78,041</p>
+                    <p className='pt-1 text-3xl font-semibold'>{petitionCountOk ? petitionCount : "-"}</p>
                 </div>
                 <div className='w-1/3 text-amber-100 flex flex-col items-center justify-center'>
                     <Mountain className='w-14 h-14' />
@@ -41,12 +55,73 @@ const SigneeNotesPage = () => {
         </div>
 
         <section className='w-full px-20 py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
-            <SigneeNote name="John Doe" date="2024-01-01" message="lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <SigneeNote name="John Doe" date="2024-01-01" message="lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-            <SigneeNote name="John Doe" date="2024-01-01" message="lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos." />
-
-            {/* optional load more */}
+            {petitionNotesOk && petitionNotes && petitionNotes.length > 0 ? petitionNotes.map((note) => (
+                note.note && <SigneeNote key={note.id} name={note.sender} date={note.date.toISOString()} message={note.note} />
+            )) : (
+                <div className='col-span-3 text-center text-gray-500'>
+                    <p>No notes found</p>
+                </div>
+            )}
         </section>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+            <div className='w-full px-20 pb-20 flex items-center justify-center gap-2'>
+                <Link
+                    href={hasPrevious ? `/signee-notes?page=${page - 1}&limit=${limit}` : '#'}
+                    className={`flex items-center gap-1 px-4 py-2 rounded-md transition-colors ${
+                        hasPrevious 
+                            ? 'bg-green-6 text-white hover:bg-green-700' 
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none'
+                    }`}
+                >
+                    <ChevronLeft className='w-4 h-4' />
+                    Previous
+                </Link>
+
+                <div className='flex items-center gap-1'>
+                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                        .filter((pageNum) => {
+                            // Show first page, last page, current page, and 1 page on each side of current
+                            if (pageNum === 1 || pageNum === totalPages) return true;
+                            if (Math.abs(pageNum - page) <= 1) return true;
+                            return false;
+                        })
+                        .map((pageNum, index, filtered) => {
+                            const prevPageNum = filtered[index - 1];
+                            const showEllipsis = prevPageNum && pageNum - prevPageNum > 1;
+                            
+                            return (
+                                <span key={pageNum} className='flex items-center gap-1'>
+                                    {showEllipsis && <span className='px-2 text-gray-400'>...</span>}
+                                    <Link
+                                        href={`/signee-notes?page=${pageNum}&limit=${limit}`}
+                                        className={`px-4 py-2 rounded-md transition-colors ${
+                                            pageNum === page
+                                                ? 'bg-green-6 text-white'
+                                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        }`}
+                                    >
+                                        {pageNum}
+                                    </Link>
+                                </span>
+                            );
+                        })}
+                </div>
+
+                <Link
+                    href={hasNext ? `/signee-notes?page=${page + 1}&limit=${limit}` : '#'}
+                    className={`flex items-center gap-1 px-4 py-2 rounded-md transition-colors ${
+                        hasNext 
+                            ? 'bg-green-6 text-white hover:bg-green-700' 
+                            : 'bg-gray-200 text-gray-400 cursor-not-allowed pointer-events-none'
+                    }`}
+                >
+                    Next
+                    <ChevronRight className='w-4 h-4' />
+                </Link>
+            </div>
+        )}
 
         <section className="flex flex-col w-full items-center justify-center min-h-[40dvh] lg:min-h-[500px] bg-cover bg-center bg-no-repeat bg-signee-notes-add-your-voice">
             <div className='mb-8 flex flex-col items-center'>
@@ -62,10 +137,6 @@ const SigneeNotesPage = () => {
         </section>
 
         <Footer />
-
-
-
-
     </div>
   )
 }
