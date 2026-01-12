@@ -6,23 +6,30 @@ import {
   deletePublication,
   generateUniqueSlug,
   getActivePublications,
+  searchPublication,
 } from "@/src/services/publications.service";
 import { revalidatePath } from "next/cache";
-import {
-  createPublicationSchema,
-  updatePublicationSchema,
-  type CreatePublicationFormData,
-  type UpdatePublicationFormData,
-} from "./publications.schemas";
+import { z } from "zod";
 
-/*
- * Server action to create a new publication
- *
- * Validates input using Zod schema
- * Generates unique slug from title
- * Revalidates paths upon success
- * Returns the created publication or error
- */
+
+const createPublicationSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  author: z.string().min(1, "Author is required"),
+  content: z.string().min(1, "Content is required"),
+  heroImage: z.string().optional().nullable(),
+  isDraft: z.boolean().default(true),
+});
+
+const updatePublicationSchema = createPublicationSchema
+  .partial()
+  .extend({
+    isActive: z.boolean().optional(),
+  });
+
+type CreatePublicationFormData = z.infer<typeof createPublicationSchema>;
+type UpdatePublicationFormData = z.infer<typeof updatePublicationSchema>;
+
 export async function createPublicationAction(data: CreatePublicationFormData) {
   const parsed = createPublicationSchema.safeParse(data);
 
@@ -57,14 +64,6 @@ export async function createPublicationAction(data: CreatePublicationFormData) {
   }
 }
 
-/*
- * Server action to update an existing publication by ID
- *
- * Supports partial updates
- * Updates slug if title changes
- * Revalidates paths upon success
- * Returns the updated publication or error
- */
 export async function updatePublicationAction(
   id: number,
   data: UpdatePublicationFormData
@@ -114,13 +113,6 @@ export async function updatePublicationAction(
   }
 }
 
-/*
- * Server action to delete a publication by ID
- *
- * Soft deletes (sets isActive to false)
- * Revalidates paths upon success
- * Returns success status
- */
 export async function deletePublicationAction(id: number) {
   try {
     await deletePublication(id);
@@ -140,13 +132,7 @@ export async function deletePublicationAction(id: number) {
   }
 }
 
-/*
- * Server action to toggle publication draft status
- *
- * Publishes a draft or unpublishes a published post
- * Revalidates paths upon success
- * Returns the updated publication or error
- */
+
 export async function togglePublishAction(id: number, isDraft: boolean) {
   try {
     const publication = await updatePublication(id, { isDraft });
@@ -167,11 +153,7 @@ export async function togglePublishAction(id: number, isDraft: boolean) {
   }
 }
 
-/*
- * Server action to get active publications
- *
- * Returns all active publications (optionally including drafts)
- */
+
 export async function getActivePublicationsAction(includeDrafts = false) {
   try {
     const publications = await getActivePublications(includeDrafts);
@@ -189,3 +171,18 @@ export async function getActivePublicationsAction(includeDrafts = false) {
   }
 }
 
+export async function searchPublicationAction(toSearch: string, page: number = 1, limit: number = 9) {
+  try {
+    const matchedPublications = await searchPublication(toSearch, page, limit);
+    return {
+      ok: true,
+      data: matchedPublications,
+    };
+  } catch (error) {
+    console.error("Error searching publications:", error);
+    return {
+      ok: false,
+      error: "Failed to search publications",
+    };
+  }
+}

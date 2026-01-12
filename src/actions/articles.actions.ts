@@ -4,15 +4,12 @@ import {
   createArticle,
   updateArticle,
   deleteArticle,
-} from "@/db/services/articles.service";
+  searchArticle,
+} from "@/src/services/articles.service";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-/*
- * Zod schema for creating a new article
- * All fields are required to have at least minimal 1 character (non-empty)
- */
-export const createArticleSchema = z.object({
+const createArticleSchema = z.object({
   sender: z.string().min(1, "Sender is a required field"),
   articleLink: z.url("Invalid URL"),
   title: z.string().min(1, "Title cannot be left blank"),
@@ -20,23 +17,12 @@ export const createArticleSchema = z.object({
   author: z.string().min(1, "Author cannot be left blank"),
 });
 
-/*
- * Zod schema for updating an existing article
- * All fields are optional for partial updates
- */
-export const updateArticleSchema = createArticleSchema
+const updateArticleSchema = createArticleSchema
   .partial()
   .extend({
     isActive: z.boolean().optional(),
   });
 
-/*
- * Server action to create a new article
- * 
- * Validates input using Zod schema
- * Revalidates /articles path upon success
- * Throws ZodError on validation failure
- */
 export async function createArticleAction(formData: FormData) {
   const parsed = createArticleSchema.safeParse({
     sender: formData.get("sender"),
@@ -54,13 +40,6 @@ export async function createArticleAction(formData: FormData) {
   revalidatePath("/articles");
 }
 
-/*
- * Server action to update an existing article by ID
- * 
- * Supports partial updates
- * Revalidates /articles path upon success
- * Throws ZodError on validation failure
- */
 export async function updateArticleAction(
   id: number,
   formData: FormData
@@ -88,13 +67,23 @@ export async function updateArticleAction(
   revalidatePath(`/articles/${id}`);
 }
 
-/*
- * Server action to delete an article by ID
- * 
- * Revalidates /articles path upon success
- */
 export async function deleteArticleAction(id: number) {
   await deleteArticle(id);
   revalidatePath("/articles");
 }
 
+export async function searchArticleAction(toSearch: string, page: number = 1, limit: number = 9) {
+  try {
+    const matchedArticles = await searchArticle(toSearch, page, limit);
+    return {
+      ok: true,
+      data: matchedArticles,
+    };
+  } catch (error) {
+    console.error("Error searching articles:", error);
+    return {
+      ok: false,
+      error: "Failed to search articles",
+    };
+  }
+}

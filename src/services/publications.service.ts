@@ -1,11 +1,8 @@
 import { db } from "@/src/db";
 import { publicationsTable } from "@/src/db/schema";
 import { eq, desc, and } from "drizzle-orm";
+import { or, ilike } from 'drizzle-orm';
 
-/*
- * CreatePublicationInput type
- * All fields are required for creation
- */
 export type CreatePublicationInput = {
   title: string;
   slug: string;
@@ -16,19 +13,12 @@ export type CreatePublicationInput = {
   isDraft?: boolean;
 };
 
-/*
- * UpdatePublicationInput type
- * All fields are optional for partial updates
- */
 export type UpdatePublicationInput = Partial<
   CreatePublicationInput & {
     isActive: boolean;
   }
 >;
 
-/*
- * Publication type for frontend use
- */
 export type Publication = {
   id: number;
   title: string;
@@ -44,10 +34,6 @@ export type Publication = {
   isActive: boolean;
 };
 
-/*
- * Create a new publication
- * Returns the created publication
- */
 export async function createPublication(data: CreatePublicationInput) {
   const [publication] = await db
     .insert(publicationsTable)
@@ -60,10 +46,6 @@ export async function createPublication(data: CreatePublicationInput) {
   return publication;
 }
 
-/*
- * Get all publications
- * Returns all publications in the database, ordered by creation date
- */
 export async function getPublications() {
   return db
     .select()
@@ -71,10 +53,6 @@ export async function getPublications() {
     .orderBy(desc(publicationsTable.createdAt));
 }
 
-/*
- * Get all active (non-deleted) publications
- * Optionally filter by draft status
- */
 export async function getActivePublications(includeDrafts = false) {
   if (includeDrafts) {
     return db
@@ -96,10 +74,6 @@ export async function getActivePublications(includeDrafts = false) {
     .orderBy(desc(publicationsTable.datePublished));
 }
 
-/*
- * Get a single publication by ID
- * Returns the publication or null if not found
- */
 export async function getPublicationById(id: number) {
   const [publication] = await db
     .select()
@@ -109,10 +83,6 @@ export async function getPublicationById(id: number) {
   return publication ?? null;
 }
 
-/*
- * Get a single publication by slug
- * Returns the publication or null if not found
- */
 export async function getPublicationBySlug(slug: string) {
   const [publication] = await db
     .select()
@@ -128,14 +98,6 @@ export async function getPublicationBySlug(slug: string) {
   return publication ?? null;
 }
 
-/*
- * Update an existing publication by ID
- *
- * Returns the updated publication
- * Refreshes updatedAt timestamp
- * Sets datePublished when publishing for the first time
- * Supports partial updates
- */
 export async function updatePublication(
   id: number,
   data: UpdatePublicationInput
@@ -162,9 +124,6 @@ export async function updatePublication(
   return publication;
 }
 
-/*
- * Delete a publication by ID (soft delete by setting isActive to false)
- */
 export async function deletePublication(id: number) {
   const [publication] = await db
     .update(publicationsTable)
@@ -178,17 +137,10 @@ export async function deletePublication(id: number) {
   return publication;
 }
 
-/*
- * Hard delete a publication by ID
- * Use with caution - this permanently removes the publication
- */
 export async function hardDeletePublication(id: number) {
   await db.delete(publicationsTable).where(eq(publicationsTable.id, id));
 }
 
-/*
- * Generate a unique slug from a title
- */
 export async function generateUniqueSlug(title: string, excludeId?: number) {
   const baseSlug = title
     .toLowerCase()
@@ -213,3 +165,27 @@ export async function generateUniqueSlug(title: string, excludeId?: number) {
   }
 }
 
+export async function searchPublication(toSearch: string, page: number, limit: number) {
+  const offset = (page - 1) * limit;
+  const q = (toSearch ?? "").trim();
+
+  const query = db
+    .select()
+    .from(publicationsTable)
+    .orderBy(desc(publicationsTable.createdAt))
+    .offset(offset)
+    .limit(limit);
+
+  const matchedPublications = q
+    ? await query.where(
+        or(
+          ilike(publicationsTable.content, `%${q}%`),
+          ilike(publicationsTable.author, `%${q}%`),
+          ilike(publicationsTable.title, `%${q}%`),
+          ilike(publicationsTable.description, `%${q}%`)
+        )
+      )
+    : await query;
+
+  return matchedPublications;
+}

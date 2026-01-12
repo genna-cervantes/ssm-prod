@@ -1,11 +1,7 @@
 import { db } from "@/src/db";
-import { articlesTable } from "@/src/db/schema";
-import { eq } from "drizzle-orm";
+import { articlesTable, publicationsTable } from "@/src/db/schema";
+import { or, ilike, eq, desc } from "drizzle-orm";
 
-/*
- * CreateArticleInput type
- * All fields are required for creation
- */
 export type CreateArticleInput = {
   sender: string;
   articleLink: string;
@@ -14,20 +10,12 @@ export type CreateArticleInput = {
   author: string;
 };
 
-/*
- * UpdateArticleInput type
- * All fields are optional for partial updates
- */
 export type UpdateArticleInput = Partial<
   CreateArticleInput & {
     isActive: boolean;
   }
 >;
 
-/*
- * Create a new article
- * Returns the created article
- */
 export async function createArticle(data: CreateArticleInput) {
   const [article] = await db
     .insert(articlesTable)
@@ -37,18 +25,10 @@ export async function createArticle(data: CreateArticleInput) {
   return article;
 }
 
-/*
- * Get all articles
- * Returns all articles in the database
- */
 export async function getArticles() {
   return db.select().from(articlesTable);
 }
 
-/*
- * Get a single article by ID
- * Returns the article or null if not found
- */
 export async function getArticleById(id: number) {
   const [article] = await db
     .select()
@@ -58,13 +38,6 @@ export async function getArticleById(id: number) {
   return article ?? null;
 }
 
-/*
- * Update an existing article by ID
- * 
- * Returns the updated article
- * Refreshes updatedAt timestamp
- * Supports partial updates
- */
 export async function updateArticle(
   id: number,
   data: UpdateArticleInput
@@ -81,10 +54,31 @@ export async function updateArticle(
   return article;
 }
 
-/*
- * Delete an article by ID
- * Does not return the deleted article
- */
 export async function deleteArticle(id: number) {
   await db.delete(articlesTable).where(eq(articlesTable.id, id));
+}
+
+export async function searchArticle(toSearch: string, page: number, limit: number) {
+  const offset = (page - 1) * limit;
+  const q = (toSearch ?? "").trim();
+
+  const query = db
+    .select()
+    .from(articlesTable)
+    .orderBy(desc(articlesTable.createdAt))
+    .offset(offset)
+    .limit(limit);
+
+  const matchedArticles = q
+    ? await query.where(
+        or(
+          ilike(publicationsTable.content, `%${q}%`),
+          ilike(publicationsTable.author, `%${q}%`),
+          ilike(publicationsTable.title, `%${q}%`),
+          ilike(publicationsTable.description, `%${q}%`)
+        )
+      )
+    : await query;
+    
+  return matchedArticles;
 }
