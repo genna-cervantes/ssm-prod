@@ -30,19 +30,11 @@ export default function SummaryCards({ summaryData }: SummaryCardsProps) {
       title: "Publications",
       value: summaryData.totalPublications.toLocaleString(),
       icon: "/summary/summary-published-icon.svg",
-    },
-    {
-      id: 4,
-      title: "Engagement Rate",
-      value: summaryData.totalSignatures > 0 
-        ? `${Math.round((summaryData.activeUsers / summaryData.totalSignatures) * 100)}%`
-        : "0%",
-      icon: "/summary/summary-engagement-icon.svg",
-    },
+    }
   ];
 
   return (
-    <div className="flex justify-between flex-wrap">
+    <div className="flex gap-4 flex-wrap">
       {cards.map((card) => (
         <div
           key={card.id}

@@ -1,45 +1,21 @@
-"use client"
-import React from "react";
-import { Trash2, Check, X } from "lucide-react"; 
-import ApprovalsButton from "./ApprovalsButtons";
+import { Trash2 } from "lucide-react"; 
+import DeleteButton from "./DeleteButton";
 
 
 interface ApprovalCardProps {
   submission: {
-    id: string
-    name: string
-    email: string
-    notes: string
-    status: "pending" | "approved" | "rejected"
+    id: number
+    sender: string
+    email: string|null
+    date: Date
+    note: string|null
   }
-  onApprove: (id: string) => void
-  onReject: (id: string) => void
-  onDelete: (id: string) => void
 }
+
 
 export default function Approvals({ 
   submission, 
-  onApprove, 
-  onReject, 
-  onDelete 
 }: ApprovalCardProps) {
-  
-  const statusConfig = {
-    pending: {
-      label: "Pending",
-      className: "bg-gray-200 text-yellow-800",
-    },
-    approved: {
-      label: "Approved",
-      className: "bg-green-300 text-green-800",
-    },
-    rejected: {
-      label: "Rejected",
-      className: "bg-red-100 text-red-800",
-    },
-  }
-
-  const config = statusConfig[submission.status]
 
   return (
     <div 
@@ -48,49 +24,24 @@ export default function Approvals({
     >
       <div className="flex justify-between items-start">
         <div>
-          <p className='text-lg font-semibold'>{submission.name}</p>
-          <p className='text-sm font-medium text-gray-500'>{submission.email}</p>
-        </div>
-        <div className={`px-3 py-1 rounded-lg text-xs font-semibold ${config.className}`}>
-          {config.label}
+          <p className='text-lg font-semibold'>{submission.sender}</p>
+          <p className='text-sm font-medium text-gray-500'>{submission?.email ?? "No email"}</p>
+          <p className='text-sm font-medium text-gray-500'>{submission.date.toLocaleDateString() ?? "No date"}</p>
         </div>
       </div>
 
       <div className="flex flex-col gap-2 mt-10">
-        <p className="text-xs font-medium text-gray-500">Notes:</p>
+        <p className="text-xs font-medium text-gray-500">Note:</p>
         <div className="bg-gray-200 p-3 rounded-md  overflow-y-auto">
-          <p className="text-sm">{submission.notes}</p>
+          <p className="text-sm">{submission.note ?? "Empty note"}</p>
         </div>
       </div>
 
       <div className="flex gap-2 justify-start items-center mt-4">
-        
-        {(submission.status === "pending" || submission.status === "rejected") && (
-          <ApprovalsButton 
-            color="green" 
-            onClick={() => onApprove(submission.id)}
-          >
-            <Check className="w-4 h-4" /> Approve
-          </ApprovalsButton>
-        )}
 
-        {/* Logic: If Pending or Approved, show Reject option */}
-        {(submission.status === "pending" || submission.status === "approved") && (
-          <ApprovalsButton 
-            color="gray" 
-            onClick={() => onReject(submission.id)}
-          >
-            <X className="w-4 h-4" /> Reject
-          </ApprovalsButton>
-        )}
-
-        {/* Logic: Always show Delete */}
-        <ApprovalsButton 
-          color="red" 
-          onClick={() => onDelete(submission.id)}
-        >
+        <DeleteButton id={submission.id}>
           <Trash2 className="w-4 h-4" /> Delete
-        </ApprovalsButton>
+        </DeleteButton>
 
       </div>
     </div>

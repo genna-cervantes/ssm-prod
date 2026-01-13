@@ -33,32 +33,6 @@ export async function getPetitionCountAction() {
   }
 }
 
-export async function getPetitionNotesCountAction() {
-  try {
-  const petitionNotesCount = await getPetitionNotesCount();
-    return { ok: true, data: petitionNotesCount };
-    
-  }catch(err){
-    console.error(err);
-    return { ok: false, error: `Failed to get petition notes count. ${err instanceof Error ? err.message : "Unknown error"}` };
-  }
-
-}
-
-export async function getPetitionNotesAction(page: number = 1, limit: number = 9) {
-  try{
-
-    const petitionNotes = await getPetitionNotes(page, limit);
-
-    return { ok: true, data: petitionNotes };
-
-  }catch(err){
-    console.error(err);
-    return { ok: false, error: `Failed to get petition notes. ${err instanceof Error ? err.message : "Unknown error"}` };
-
-  }
-}
-
 export async function signPetitionAction(formData: FormData) {
   try {
     const data = SignPetitionSchema.parse({

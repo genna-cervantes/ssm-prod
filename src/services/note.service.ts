@@ -1,7 +1,7 @@
 import "server-only";
 
 import { db } from "@/src/db";
-import { notesTable } from "@/src/db/schema";
+import { notesTable, petitionsTable } from "@/src/db/schema";
 import { eq, desc, count } from "drizzle-orm";
 
 export type CreateNoteInput = {
@@ -43,16 +43,27 @@ export async function getPetitionNotes(page: number, limit: number){
 }
 
 
-// notes
-// export const notesTable = pgTable("notes", {
-//   id: serial("id").primaryKey(),
-//   sender: varchar("sender", { length: 255 }).notNull(),
-//   note: text("note"),
-//   date: timestamp("date", { withTimezone: true }).defaultNow().notNull(),
-//   petitionId: integer("petition_id")
-//     .notNull()
-//     .references(() => petitionsTable.petitionId, {
-//       onDelete: "cascade",
-//     }),
-//   ...baseColumns,
-// });
+export async function getPetitionNotesWithEmail(page: number, limit: number){
+  const offset = (page - 1) * limit;
+
+  const notes = await db
+    .select({
+      id: notesTable.id,
+      sender: notesTable.sender,
+      email: petitionsTable.emailAddress,
+      note: notesTable.note,
+      date: notesTable.date,
+    })
+    .from(notesTable)
+    .leftJoin(petitionsTable, eq(notesTable.petitionId, petitionsTable.petitionId))
+    .where(eq(notesTable.isActive, true))
+    .offset(offset)
+    .orderBy(desc(notesTable.date))
+    .limit(limit)
+
+    return notes;
+}
+
+export async function deleteNote(id: number) {
+  await db.update(notesTable).set({ isActive: false }).where(eq(notesTable.id, id));
+}

@@ -1,51 +1,13 @@
-"use client"
-
 import Sidebar from "../_components/Sidebar"
 import Approvals from "../_components/Approvals"
-import { useState } from "react"
+import { getPetitionNotesWithEmailAction } from "@/src/actions/notes.actions"
 
-interface Submission {
-  id: string
-  name: string
-  email: string
-  notes: string
-  status: "pending" | "approved" | "rejected"
-}
+export default async function SigneeApproval({ searchParams }: { searchParams: { page: string, limit: string } }) {
 
-const initialSubmissions: Submission[] = [
-  {
-    id: "1",
-    name: "John Smith",
-    email: "john@example.com",
-    notes: "Concerned about water quality",
-    status: "pending",
-  },
-  {
-    id: "2",
-    name: "Maria Garcia",
-    email: "maria@example.com",
-    notes: "Environmental impact assessment needed",
-    status: "approved",
-  },
-]
+  const page = Number(searchParams.page) || 1;
+  const limit = Number(searchParams.limit) || 9;
 
-
-
-export default function SigneeApproval() {
-
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
-
-  const handleApprove = (id: string) => {
-    setSubmissions(submissions.map((s) => (s.id === id ? { ...s, status: "approved" } : s)))
-  }
-
-  const handleReject = (id: string) => {
-    setSubmissions(submissions.map((s) => (s.id === id ? { ...s, status: "rejected" } : s)))
-  }
-
-  const handleDelete = (id: string) => {
-    setSubmissions(submissions.filter((s) => s.id !== id))
-  }
+  const { ok: petitionNotesOk, data: petitionNotes } = await getPetitionNotesWithEmailAction(page, limit);
 
   return (
     <div className="flex w-full m-auto max-w-[1440px] bg-[#FFF4E0] justify-center items-center">
@@ -62,15 +24,12 @@ export default function SigneeApproval() {
             </div>
           </div> 
           <div className="w-full py-2 px-1 flex flex-col gap-4">
-            {submissions.length > 0 ? submissions.map((submission) => (
-            <Approvals
-              key={submission.id}
-              submission={submission}
-              onApprove={handleApprove}
-              onReject={handleReject}
-              onDelete={handleDelete}
-            />
-          )) : <div className="flex justify-center items-center h-full">No submissions found</div>}
+            {petitionNotesOk && petitionNotes && petitionNotes.length > 0 ? petitionNotes.map((submission) => (
+              <Approvals
+                key={submission.id}
+                submission={submission}
+              />
+            )) : <div className="flex justify-center items-center h-full">No submissions found</div>}
           </div>
         </div>
       </div>

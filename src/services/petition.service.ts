@@ -94,7 +94,6 @@ export async function getPetitionsByWeek() {
     chartData.push({
       date: weekKey,
       signatures: weeklyData[weekKey] || 0,
-      engagement: Math.floor((weeklyData[weekKey] || 0) * 0.6), // Approximate engagement as 60% of signatures
     });
   }
 

@@ -9,7 +9,7 @@ const MessageSchema = z.object({
   message: z.string().min(1, "Message is required"),
 });
 
-export type SendMessageState = 
+type SendMessageState = 
   | {ok: true;}
   | {ok: false; error:string;}
 

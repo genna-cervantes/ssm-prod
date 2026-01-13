@@ -4,7 +4,8 @@ import { ChevronLeft, ChevronRight, Mail, Mountain, Pen } from 'lucide-react'
 import Footer from '../_components/Footer'
 import SigneeNote from './_components/SigneeNote'
 import Link from 'next/link'
-import { getPetitionCountAction, getPetitionNotesAction, getPetitionNotesCountAction } from '@/src/actions/petition.actions'
+import { getPetitionCountAction } from '@/src/actions/petition.actions'
+import { getPetitionNotesAction, getPetitionNotesCountAction } from '@/src/actions/notes.actions'
 
 export const metadata: Metadata = {
   title: "Community Voices | Save Sierra Madre",

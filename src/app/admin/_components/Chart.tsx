@@ -5,7 +5,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 interface ChartDataPoint {
   date: string;
   signatures: number;
-  engagement: number;
 }
 
 interface ChartProps {
@@ -15,7 +14,7 @@ interface ChartProps {
 export default function Chart({ chartData }: ChartProps) {
   // Calculate max value for Y-axis domain
   const maxValue = Math.max(
-    ...chartData.map(d => Math.max(d.signatures, d.engagement)),
+    ...chartData.map(d => Math.max(d.signatures)),
     100 // minimum value
   );
   const yAxisMax = Math.ceil(maxValue / 100) * 100; // Round up to nearest 100
@@ -40,14 +39,6 @@ export default function Chart({ chartData }: ChartProps) {
             stroke="#4a7c59"
             strokeWidth={2}
             dot={{ fill: "#4a7c59", r: 4 }}
-            activeDot={{ r: 6 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="engagement"
-            stroke="#a8c896"
-            strokeWidth={2}
-            dot={{ fill: "#a8c896", r: 4 }}
             activeDot={{ r: 6 }}
           />
         </LineChart>
