@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { z } from "zod";
 import { getPetitionCount, signPetition } from "../services/petition.service";
 import { addNote, getPetitionNotes, getPetitionNotesCount } from "../services/note.service";
@@ -61,25 +60,42 @@ export async function getPetitionNotesAction(page: number = 1, limit: number = 9
 }
 
 export async function signPetitionAction(formData: FormData) {
-  const data = SignPetitionSchema.parse({
-    firstName: formData.get("firstName"),
-    lastName: formData.get("lastName"),
-    emailAddress: formData.get("emailAddress"),
-    occupation: formData.get("occupation"),
-    affiliation: formData.get("affiliation"),
-  });
+  try {
+    const data = SignPetitionSchema.parse({
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      emailAddress: formData.get("emailAddress"),
+      occupation: formData.get("occupation"),
+      affiliation: formData.get("affiliation"),
+    });
 
-  const petition = await signPetition(data);
+    const petition = await signPetition(data);
 
-  // redirect(`/petitions/${petition.petitionId}/note`);
+    return { ok: true, data: { petitionId: petition.petitionId } };
+  } catch (err) {
+    console.error(err);
+    if (err instanceof z.ZodError) {
+      return { ok: false, error: err.issues[0]?.message ?? "Validation error" };
+    }
+    return { ok: false, error: `Failed to sign petition. ${err instanceof Error ? err.message : "Unknown error"}` };
+  }
 }
 
 export async function addPetitionNoteAction(formData: FormData) {
-  const data = AddNoteSchema.parse({
-    petitionId: formData.get("petitionId"),
-    sender: formData.get("sender"),
-    note: formData.get("note"),
-  });
+  try {
+    const data = AddNoteSchema.parse({
+      petitionId: formData.get("petitionId"),
+      sender: formData.get("sender"),
+      note: formData.get("note"),
+    });
 
-  await addNote(data);
+    await addNote(data);
+    return { ok: true };
+  } catch (err) {
+    console.error(err);
+    if (err instanceof z.ZodError) {
+      return { ok: false, error: err.issues[0]?.message ?? "Validation error" };
+    }
+    return { ok: false, error: `Failed to add note. ${err instanceof Error ? err.message : "Unknown error"}` };
+  }
 }

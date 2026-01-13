@@ -1,24 +1,70 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { Instrument_Sans } from "next/font/google";
 import { Header } from "@/src/app/_components/Header";
+import { getPublicationBySlugAction } from "@/src/actions/publications.actions";
 
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 });
 
-interface ArticlePageProps {
+interface PublicationPageProps {
   params: { slug: string };
 }
 
-export default function ArticlePage({ params }: ArticlePageProps) {
-  const article = {
-    date: "November 19, 2024",
-    title: "Why Should We Protect The Sierra Madre, The ‘Backbone of Luzon’?",
-    author: "Nica Glorioso",
-    heroImage: "/assets/mountain.png",
-    inlineImage: "/assets/mountain.png",
+export async function generateMetadata({ params }: PublicationPageProps): Promise<Metadata> {
+  const { ok, data: publication } = await getPublicationBySlugAction(params.slug);
+
+  if (!ok || !publication) {
+    return {
+      title: "Publication Not Found | Save Sierra Madre",
+      description: "The requested publication could not be found.",
+    };
+  }
+
+  // Strip HTML tags from content for description
+  const plainTextContent = publication.content
+    .replace(/<[^>]*>/g, "")
+    .substring(0, 160)
+    .trim();
+
+  return {
+    title: `${publication.title} | Save Sierra Madre`,
+    description: plainTextContent || `Read "${publication.title}" by ${publication.author} - a publication from Save Sierra Madre.`,
+    authors: [{ name: publication.author }],
+    openGraph: {
+      title: publication.title,
+      description: plainTextContent || `Read "${publication.title}" by ${publication.author}`,
+      type: "article",
+      publishedTime: publication.datePublished?.toISOString(),
+      authors: [publication.author],
+      images: publication.heroImage ? [publication.heroImage] : ["/assets/signee-notes-add-your-voice.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: publication.title,
+      description: plainTextContent || `Read "${publication.title}" by ${publication.author}`,
+      images: publication.heroImage ? [publication.heroImage] : ["/assets/signee-notes-add-your-voice.png"],
+    },
   };
+}
+
+export default async function PublicationPage({ params }: PublicationPageProps) {
+  const { ok: publicationOk, data: publicationData } = await getPublicationBySlugAction(params.slug);
+
+  if (!publicationOk || !publicationData) {
+    notFound();
+  }
+
+  const formattedDate = publicationData.datePublished
+    ? new Date(publicationData.datePublished).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
 
   return (
     <main className="bg-white text-[#1C1C1C]">
@@ -27,7 +73,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
       <section className="relative w-full h-[360px] sm:h-[420px] md:h-[520px] flex items-end">
         <Image
-          src={article.heroImage}
+          src={publicationData.heroImage || "/assets/mountain.png"}
           alt="Hero"
           fill
           className="object-cover"
@@ -42,7 +88,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 width={16}
                 height={16}
               />
-              {article.date}
+              {formattedDate}
             </p>
 
             <h1
@@ -59,7 +105,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 overflow: "hidden",
               }}
             >
-              {article.title}
+              {publicationData.title}
             </h1>
           </div>
 
@@ -73,42 +119,14 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             />
             <div className="leading-tight">
               <p className="text-sm opacity-80">Written by:</p>
-              <p className="text-base font-semibold">{article.author}</p>
+              <p className="text-base font-semibold">{publicationData.author}</p>
             </div>
           </div>
         </div>
       </section>
 
       <section className="max-w-4xl mx-auto px-6 py-12 text-[#373F2A] leading-8">
-        <p>
-          Also deemed “the backbone of Luzon,” “Luzon’s natural fortress,” and
-          “the mother of mountains,” isn’t just a thing of natural beauty...
-        </p>
-
-        <p className="mt-6">With the recent visibility of multiple typhoons...</p>
-
-        <div
-          className="
-            w-full
-            max-w-[1120px]
-            h-[201px]
-            rounded-[45px]
-            bg-cover
-            bg-center
-            mx-auto
-            my-10
-          "
-          style={{
-            backgroundImage:
-              "linear-gradient(182.04deg, rgba(255,255,255,0.2) 1.71%, rgba(26,47,26,0.2) 98.29%), url('/assets/mountain.png')",
-          }}
-        ></div>
-
-        <p>A popular statement that circulates...</p>
-
-        <p className="mt-6">
-          Typhoons are getting worse and more frequent…
-        </p>
+        <div dangerouslySetInnerHTML={{ __html: publicationData.content }} />
       </section>
 
       <section className="bg-[#1E3A1E] py-16 mt-10 text-white">
@@ -122,7 +140,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             text-[#FFF4E0]
           `}
         >
-          Articles you might like
+          Publications you might like
         </h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-6 max-w-7xl mx-auto mt-12">

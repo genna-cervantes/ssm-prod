@@ -1,9 +1,28 @@
+import type { Metadata } from "next";
 import Image from 'next/image';
 import { Header } from "../_components/Header";
 import Footer from "../_components/Footer";
 import { Users, Shield, Eye, Leaf, ChevronUp, Send } from 'lucide-react';
 import SendMessageForm from './_components/SendMessageForm';
 import CoreValuesSection from './_components/CoreValuesSection';
+
+export const metadata: Metadata = {
+  title: "About Us | Save Sierra Madre Network Alliance, Inc.",
+  description: "Learn about Save Sierra Madre Network Alliance, Inc. (SSMNAI) - a non-governmental organization dedicated to preserving the Sierra Madre Mountain Range through advocacy, community engagement, and environmental protection.",
+  keywords: ["SSMNAI", "Save Sierra Madre Network Alliance", "Sierra Madre conservation", "environmental NGO", "Philippines", "indigenous communities", "advocacy"],
+  openGraph: {
+    title: "About Us | Save Sierra Madre Network Alliance, Inc.",
+    description: "Learn about Save Sierra Madre Network Alliance, Inc. (SSMNAI) - a non-governmental organization dedicated to preserving the Sierra Madre Mountain Range.",
+    type: "website",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | Save Sierra Madre Network Alliance, Inc.",
+    description: "Learn about Save Sierra Madre Network Alliance, Inc. (SSMNAI) - a non-governmental organization dedicated to preserving the Sierra Madre Mountain Range.",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+};
 
 export default function AboutPage() {
 

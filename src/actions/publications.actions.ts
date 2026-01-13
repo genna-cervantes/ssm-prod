@@ -7,6 +7,7 @@ import {
   generateUniqueSlug,
   getActivePublications,
   searchPublication,
+  getPublicationBySlug,
 } from "@/src/services/publications.service";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -183,6 +184,22 @@ export async function searchPublicationAction(toSearch: string, page: number = 1
     return {
       ok: false,
       error: "Failed to search publications",
+    };
+  }
+}
+
+export async function getPublicationBySlugAction(slug: string) {
+  try {
+    const publication = await getPublicationBySlug(slug);
+    return {
+      ok: true,
+      data: publication,
+    };
+  } catch (error) {
+    console.error("Error fetching publication by slug:", error);
+    return {
+      ok: false,
+      error: "Failed to fetch publication by slug",
     };
   }
 }

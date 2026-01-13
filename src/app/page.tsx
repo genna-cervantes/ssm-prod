@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from 'next/image';
 import { Header } from "./_components/Header";
 import PetitionProgress from "./_components/PetitionProgress";
@@ -9,6 +10,24 @@ import Footer from "./_components/Footer";
 import { getPetitionCount } from "@/src/services/petition.service"; 
 import Link from 'next/link';
 // import TopicCard from "./_components/TopicCard";
+
+export const metadata: Metadata = {
+  title: "Save Sierra Madre | Protecting the Philippines' Last Ecological Frontier",
+  description: "Join the movement to protect Sierra Madre, the longest mountain range in the Philippines. Sign the petition to save our forests, biodiversity, and indigenous communities for future generations.",
+  keywords: ["Sierra Madre", "Philippines", "environmental protection", "conservation", "petition", "indigenous communities", "Kaliwa Dam", "forest protection"],
+  openGraph: {
+    title: "Save Sierra Madre | Protecting the Philippines' Last Ecological Frontier",
+    description: "Join the movement to protect Sierra Madre, the longest mountain range in the Philippines. Sign the petition today.",
+    type: "website",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Save Sierra Madre | Protecting the Philippines' Last Ecological Frontier",
+    description: "Join the movement to protect Sierra Madre, the longest mountain range in the Philippines. Sign the petition today.",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+};
 
 const NOTES_DATA = [
   { date: "December 19, 2025", quote: "Save the Sierra Madre—hindi lang ’to bundok, ito yung shield natin laban sa bagyo, and once we lose it, wala nang reset button.", author: "Anonymous" },
@@ -306,10 +325,10 @@ export default async function Home() {
               future generations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8 w-full sm:w-auto">
-              <button className="px-6 md:px-8 py-3 bg-white text-[#395739] rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+              <Link href="/sign" className="px-6 md:px-8 py-3 bg-white text-[#395739] rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
                 Sign the Petition Now
-              </button>
-              <Link href="/publications" className="px-6 md:px-8 py-3 border-2 border-white rounded-lg font-semibold transition-colors text-brown-2 hover:bg-white hover:text-[#395739] text-center">
+              </Link>
+              <Link href="/about" className="px-6 md:px-8 py-3 border-2 border-white rounded-lg font-semibold transition-colors text-brown-2 hover:bg-white hover:text-[#395739] text-center">
                 Learn About Our Work
               </Link>
             </div>

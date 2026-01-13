@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    images: ["/logo.png"],
+    images: ["/assets/signee-notes-add-your-voice.png"],
   },
 };
 

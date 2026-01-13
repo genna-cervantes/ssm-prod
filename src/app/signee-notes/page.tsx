@@ -1,9 +1,28 @@
+import type { Metadata } from "next";
 import { Header } from '../_components/Header'
 import { ChevronLeft, ChevronRight, Mail, Mountain, Pen } from 'lucide-react'
 import Footer from '../_components/Footer'
 import SigneeNote from './_components/SigneeNote'
 import Link from 'next/link'
 import { getPetitionCountAction, getPetitionNotesAction, getPetitionNotesCountAction } from '@/src/actions/petition.actions'
+
+export const metadata: Metadata = {
+  title: "Community Voices | Save Sierra Madre",
+  description: "Read heartfelt messages from petition signees who are united in protecting Sierra Madre. Join the community and share your voice for environmental conservation.",
+  keywords: ["Sierra Madre community", "petition voices", "environmental advocacy", "community notes", "Philippines conservation"],
+  openGraph: {
+    title: "Community Voices | Save Sierra Madre",
+    description: "Read heartfelt messages from petition signees who are united in protecting Sierra Madre. Join the community and share your voice.",
+    type: "website",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Community Voices | Save Sierra Madre",
+    description: "Read heartfelt messages from petition signees who are united in protecting Sierra Madre. Join the community and share your voice.",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+};
 
 const SigneeNotesPage = async ({ searchParams }: { searchParams: { page: string, limit: string } }) => {
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import ArticleCard from "../_components/ArticleCard";
 import { Header } from "../_components/Header";
 import Footer from "../_components/Footer";
@@ -7,6 +8,24 @@ import SearchBar from "./_components/SearchBar";
 import { Instrument_Sans, Hedvig_Letters_Sans, Instrument_Serif } from "next/font/google";
 import { searchPublicationAction } from "@/src/actions/publications.actions";
 import { searchArticleAction } from "@/src/actions/articles.actions";
+
+export const metadata: Metadata = {
+  title: "Publications & Articles | Save Sierra Madre",
+  description: "Explore research, articles, and publications about Sierra Madre conservation, environmental issues, and indigenous communities. Stay informed about the latest developments in protecting our natural heritage.",
+  keywords: ["Sierra Madre publications", "environmental research", "conservation articles", "Philippines environment", "Sierra Madre news", "indigenous communities"],
+  openGraph: {
+    title: "Publications & Articles | Save Sierra Madre",
+    description: "Explore research, articles, and publications about Sierra Madre conservation, environmental issues, and indigenous communities.",
+    type: "website",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Publications & Articles | Save Sierra Madre",
+    description: "Explore research, articles, and publications about Sierra Madre conservation, environmental issues, and indigenous communities.",
+    images: ["/assets/signee-notes-add-your-voice.png"],
+  },
+};
 
 const instrumentSans = Instrument_Sans({ subsets: ["latin"] });
 const instrumentSerif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
