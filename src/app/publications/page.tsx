@@ -9,6 +9,8 @@ import { Instrument_Sans, Hedvig_Letters_Sans, Instrument_Serif } from "next/fon
 import { searchPublicationAction } from "@/src/actions/publications.actions";
 import { searchArticleAction } from "@/src/actions/articles.actions";
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Publications & Articles | Save Sierra Madre",
   description: "Explore research, articles, and publications about Sierra Madre conservation, environmental issues, and indigenous communities. Stay informed about the latest developments in protecting our natural heritage.",

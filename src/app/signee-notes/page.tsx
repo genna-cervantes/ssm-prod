@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { getPetitionCountAction } from '@/src/actions/petition.actions'
 import { getPetitionNotesAction, getPetitionNotesCountAction } from '@/src/actions/notes.actions'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Community Voices | Save Sierra Madre",
   description: "Read heartfelt messages from petition signees who are united in protecting Sierra Madre. Join the community and share your voice for environmental conservation.",

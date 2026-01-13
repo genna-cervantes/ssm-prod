@@ -11,6 +11,8 @@ import { getPetitionCount } from "@/src/services/petition.service";
 import Link from 'next/link';
 // import TopicCard from "./_components/TopicCard";
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Save Sierra Madre | Protecting the Philippines' Last Ecological Frontier",
   description: "Join the movement to protect Sierra Madre, the longest mountain range in the Philippines. Sign the petition to save our forests, biodiversity, and indigenous communities for future generations.",

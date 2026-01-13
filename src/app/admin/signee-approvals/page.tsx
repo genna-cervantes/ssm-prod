@@ -2,6 +2,8 @@ import Sidebar from "../_components/Sidebar"
 import Approvals from "../_components/Approvals"
 import { getPetitionNotesWithEmailAction } from "@/src/actions/notes.actions"
 
+export const dynamic = 'force-dynamic'
+
 export default async function SigneeApproval({ searchParams }: { searchParams: { page: string, limit: string } }) {
 
   const page = Number(searchParams.page) || 1;

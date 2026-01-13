@@ -3,6 +3,8 @@ import PetitionForm from "./_components/PetitionForm";
 import { Header } from "../_components/Header";
 import Footer from "../_components/Footer";
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: "Sign the Petition | Save Sierra Madre",
   description:

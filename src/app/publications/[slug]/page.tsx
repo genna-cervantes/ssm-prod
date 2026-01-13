@@ -5,6 +5,8 @@ import { Instrument_Sans } from "next/font/google";
 import { Header } from "@/src/app/_components/Header";
 import { getPublicationBySlugAction } from "@/src/actions/publications.actions";
 
+export const dynamic = 'force-dynamic'
+
 const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   weight: ["400", "600", "700"],

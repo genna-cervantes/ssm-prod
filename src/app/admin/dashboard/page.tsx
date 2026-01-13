@@ -6,6 +6,8 @@ import { getUsersAction } from '../../../actions/users.actions'
 import { getActivePublicationsAction } from '@/src/actions/publications.actions'
 import { getPetitionCount, getRecentPetitions, getPetitionsByWeek } from '@/src/services/petition.service'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Dashboard() {
   // Fetch all dashboard data in parallel from different sources
   const [usersResult, publicationsResult, totalSignatures, chartData, recentPetitions] = await Promise.all([
