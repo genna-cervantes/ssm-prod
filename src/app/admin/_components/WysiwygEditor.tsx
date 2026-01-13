@@ -59,6 +59,7 @@ export function WysiwygEditor({
       }),
     ],
     content,
+    immediatelyRender: false,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
