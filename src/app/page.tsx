@@ -103,8 +103,8 @@ export default async function Home() {
               </p>
             </div>
             <div className="hero-cta flex  flex-row gap-4 w-full sm:w-auto mt-4">
-              <button className="bg-green-6 text-white px-1.5 lg:px-8 py-4 rounded-xl text-s text-m lg:text-lg hover:bg-[#3a583a] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 w-full sm:w-auto">Sign the petition now</button>
-              <Link href="/publications" className="bg-white/80 backdrop-blur-2xl text-black lg:px-12 py-4 rounded-xl text-s lg:text-lg hover:bg-green-600 hover:text-white transition-all w-3/4 sm:w-auto">Learn more</Link>
+              <Link href='/sign' className="bg-green-6 text-white px-1.5 lg:px-8 py-4 rounded-xl text-s text-m lg:text-lg hover:bg-[#3a583a] transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 w-full sm:w-auto">Sign the petition now</Link>
+              <Link href="/about" className="bg-white/80 backdrop-blur-2xl text-black lg:px-12 py-4 rounded-xl text-s lg:text-lg hover:bg-green-600 hover:text-white transition-all w-3/4 sm:w-auto">Learn more</Link>
             </div>
           </div>
 

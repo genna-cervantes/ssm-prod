@@ -169,15 +169,14 @@ export async function searchPublication(toSearch: string, page: number, limit: n
   const offset = (page - 1) * limit;
   const q = (toSearch ?? "").trim();
 
-  const query = db
-    .select()
-    .from(publicationsTable)
-    .orderBy(desc(publicationsTable.createdAt))
-    .offset(offset)
-    .limit(limit);
+  const baseConditions = and(
+    eq(publicationsTable.isActive, true),
+    eq(publicationsTable.isDraft, false)
+  );
 
-  const matchedPublications = q
-    ? await query.where(
+  const whereCondition = q
+    ? and(
+        baseConditions,
         or(
           ilike(publicationsTable.content, `%${q}%`),
           ilike(publicationsTable.author, `%${q}%`),
@@ -185,7 +184,15 @@ export async function searchPublication(toSearch: string, page: number, limit: n
           ilike(publicationsTable.description, `%${q}%`)
         )
       )
-    : await query;
+    : baseConditions;
+
+  const matchedPublications = await db
+    .select()
+    .from(publicationsTable)
+    .where(whereCondition)
+    .orderBy(desc(publicationsTable.createdAt))
+    .offset(offset)
+    .limit(limit);
 
   return matchedPublications;
 }

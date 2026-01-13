@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 type MobileMenuProps = {
   links: { label: string; href: string }[];
@@ -34,9 +35,9 @@ export default function MobileMenu({ links, containerClasses, buttonClasses }: M
               {link.label}
             </a>
           ))}
-          <button className={`px-8 py-3 rounded-lg font-semibold text-lg transition-all ${buttonClasses}`}>
+          <Link href='/sign' className={`px-8 py-3 rounded-lg font-semibold text-lg transition-all ${buttonClasses}`}>
             Sign the Petition
-          </button>
+          </Link>
         </div>
       )}
     </div>

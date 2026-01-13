@@ -1,10 +1,7 @@
 import { APIError, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../db/index"; // your drizzle instance
-import { config } from 'dotenv'
 import * as schema from '../db/schema'
-
-config();
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {

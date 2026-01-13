@@ -69,9 +69,9 @@ export const Header = ({
 
       {/* Desktop Action Button */}
       <div className="hidden md:block">
-          <button className={`px-8 py-3 rounded-lg font-semibold text-lg transition-all ${buttonClasses}`}>
+          <Link href='/sign' className={`px-8 py-3 rounded-lg font-semibold text-lg transition-all ${buttonClasses}`}>
               Sign the Petition
-          </button>
+          </Link>
       </div>
 
       {/* Mobile Menu (Client Component) */}
